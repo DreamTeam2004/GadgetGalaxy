@@ -1,6 +1,6 @@
 // Header.tsx
 import React from 'react';
-import '@/assets/styles/style-components/AdminHeader.css';
+import '../assets/styles/style-components/Header.scss';
 
 export default function Header() {
   return (

@@ -3,7 +3,7 @@ import AdminFooter from "@/components/AdminFooter";
 
 import type { Metadata } from "next";
 
-import "../../app/globals.scss";
+import "../../assets/styles/globals.scss";
 
 export const metadata: Metadata = {
   title: "GadgetGalaxy",

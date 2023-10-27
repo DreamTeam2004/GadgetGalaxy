@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 
 import type { Metadata } from "next";
 
-import "../../app/globals.scss";
+import "../../assets/styles/globals.scss";
 
 export const metadata: Metadata = {
   title: "GadgetGalaxy",

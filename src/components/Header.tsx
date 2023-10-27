@@ -26,7 +26,7 @@ const Header = () => {
           <div className="header__search">
             <input
               className="header__search-input"
-              type="search"
+              type="input"
               placeholder="Поиск..."
             />
             <button className="header__search-btn">
