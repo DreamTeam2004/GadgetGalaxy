@@ -1,7 +1,11 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer"; 
 
-import "./globals.scss";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "GadgetGalaxy",
+};
 
 export default function RootLayout({
   children,
@@ -10,10 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <div className="wrapper">
-        <Header />
-        {children}
-      </div>
+      <Header />
+      {children}
       <Footer />
     </html>
   );
