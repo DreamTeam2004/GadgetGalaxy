@@ -2,9 +2,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer"; 
 
 import type { Metadata } from "next";
+import Head from "next/head";
 
 export const metadata: Metadata = {
-  title: "GadgetGalaxy",
+  title: "GadgetGalaxyAdmin",
 };
 
 export default function RootLayout({

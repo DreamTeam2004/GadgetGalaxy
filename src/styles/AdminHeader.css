@@ -1,0 +1,22 @@
+.header{
+    height: 100px;
+    border-bottom: 2px solid #EBEBEB;
+}
+.header__inner{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    height: 44px;
+}
+.user__container{
+    display: flex;
+    align-items: center;
+}
+@media (max-width: 350px) {
+    .logo{
+        height: 35px;
+    }
+}
