@@ -1,7 +1,9 @@
 import AdminHeader from "@/components/AdminHeader";
-import AdminFooter from "@/components/AdminFooter"; 
+import AdminFooter from "@/components/AdminFooter";
 
 import type { Metadata } from "next";
+
+import "../../app/globals.scss";
 
 export const metadata: Metadata = {
   title: "GadgetGalaxy",
@@ -14,8 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <AdminHeader />
-      {children}
+      <div className="wrapper">
+        <AdminHeader />
+        {children}
+      </div>
       <AdminFooter />
     </html>
   );

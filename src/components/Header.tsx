@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import '@/assets/styles/style-components/Header.scss';
+
 import Logo from "@/components/Logo";
 
 import shopping from "@/assets/images/icon-shopping.svg";

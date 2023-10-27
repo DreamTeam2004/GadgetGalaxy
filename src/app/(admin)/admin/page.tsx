@@ -1,4 +1,4 @@
-import '@/styles/global.css';
+
 export default function Auth() {
     return (
       <main className="main">

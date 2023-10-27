@@ -1,6 +1,7 @@
 // Footer.tsx
 import React from "react";
 
+import '@/assets/styles/style-components/Footer.scss';
 import Logo from "@/components/Logo";
 import Link from "next/link";
 
