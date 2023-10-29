@@ -1,0 +1,76 @@
+@import "../vars.scss";
+
+.categories {
+  background-color: #eef0f4;
+  &__inner {
+    padding: 10px 0 60px 0;
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    &-item {
+      background-color: #fff;
+      width: 345px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      margin-bottom: 20px;
+      margin-right: 20px;
+      gap: 20px;
+
+      align-items: center;
+
+      &:nth-child(4n) {
+        margin-right: 0; /* Убираем margin-right для каждого четвертого элемента */
+      }
+
+      &:hover {
+        box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
+        .button-1 {
+          background: $primaryColor;
+        }
+      }
+    }
+  }
+  &__title {
+    color: #1d232c;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+.popular {
+  &__buttons {
+    display: flex;
+  }
+}
+
+.button-1 {
+  display: flex;
+  align-self: flex-end;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #dde1e8;
+  background-repeat: no-repeat;
+  &:hover {
+    color: #fff;
+    background: $primaryColor;
+    .basket {
+    }
+    &.favorites {
+    }
+  }
+  &.basket {
+    margin-left: 15px;
+    background: $secondaryColor;
+  }
+
+  &.favorites {
+    background: $secondaryColor;
+  }
+}
