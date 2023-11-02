@@ -2,13 +2,14 @@
 
 .header {
   border-bottom: 2px solid #ebebeb;
+  background: #fff;
+
   &__wrapper {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 100;
-    background: #fff;
   }
   &__inner {
     display: flex;
@@ -19,7 +20,7 @@
   &__group-catalog {
     display: flex;
   }
-  &__catalog {
+  &__catalog-btn {
     border-radius: 10px;
     background: #9e00ff;
     color: #fff;
@@ -71,7 +72,15 @@
     &-item {
       height: 30px;
       width: 30px;
+
+      &:hover {
+        .header__nav-icon * {
+          fill: $primaryColor;
+          transition: fill 0.25s ease-in-out;
+        }
+      }
     }
+
     // &-icon {
     //     &:hover {
     //     }

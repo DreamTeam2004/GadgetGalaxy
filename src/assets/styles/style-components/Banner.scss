@@ -1,0 +1,74 @@
+@import "../vars";
+.banner {
+  &__slide {
+    position: relative;
+    height: 600px;
+    margin-bottom: 80px;
+  }
+
+  &__image {
+    height: 600px;
+  }
+  &__text {
+    position: absolute;
+    top: 30%;
+    left: 15%;
+    color: white;
+  }
+  &__title {
+    white-space: "pre-line";
+    &-bold {
+      font-weight: 600;
+    }
+  }
+  &__button {
+    background-color: $primaryColor;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    margin-top: 35px;
+    cursor: pointer;
+  }
+}
+
+.slick-slider{
+   
+    margin: 0 auto;
+}
+
+/* Стилизация точек в Slick Slider */
+.slick-dots {
+  position: absolute;
+  top: 83%;
+  display: flex; /* Устанавливаем flex для выравнивания точек по центру */
+  justify-content: center; /* Выравниваем точки по центру по горизонтали */
+  list-style: none; /* Убираем стандартное маркерное начертание */
+  padding: 0; /* Убираем внутренние отступы */
+}
+
+.slick-dots li {
+  margin: 0 5px; /* Устанавливаем отступ между точками */
+}
+
+.slick-dots li button {
+  width: 3px; /* Устанавливаем ширину точки */
+  height: 3px; /* Устанавливаем высоту точки */
+  background-color: #fff; /* Устанавливаем цвет фона точки */
+  border: none; /* Убираем границу точки */
+  border-radius: 50%; /* Делаем точку круглой */
+  cursor: pointer;
+}
+
+.slick-dots li.slick-active button {
+  background-color: $primaryColor; /* Устанавливаем цвет фона для активной точки */
+  width: 10px;
+  border-radius: 35%;
+}
+
+.slick-dots li button:before {
+  position: relative;
+  content: "" !important;
+  margin: 0;
+  padding: 0;
+}

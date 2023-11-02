@@ -1,70 +1,152 @@
 @import "../vars.scss";
 
 .list {
-    display: flex;
-    padding-bottom: 15px;
-    flex-wrap: wrap;
-    &__item {
-      width: 270px;
+  display: flex;
+  padding-bottom: 10px;
+  &:hover {
+    .slick-next,
+    .slick-prev {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 10;
+    }
+  }
+  &__item {
+    max-width: 270px;
+    height: 385px;
+    padding: 20px;
+    margin: 10px;
+
+    border-radius: 20px;
+    border: 0px solid #eef0f4;
+    background: #fff;
+    box-shadow: 0px 0px 10px 0px rgba(107, 107, 107, 0.33);
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
+      transition: box-shadow 0.3s ease-in-out;
+      .list__item-name {
+        color: $primaryColor;
+        transition: color 0.2s ease-in-out;
+      }
+    }
+
+    &-text {
+      height: 85px;
+    }
+    &-category {
+      color: #5f6c72;
+
+      font-size: 12px;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 10px;
+    }
+
+    &-image {
+      margin: 15px auto;
+    }
+    &-bottom {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-      padding: 20px;
-      margin-right: 20px;
-  
-      border-radius: 20px;
-      border: 0px solid #eef0f4;
-      background: #fff;
-      box-shadow: 0px 0px 10px 0px rgba(107, 107, 107, 0.33);
-      &:nth-child(5n) {
-        margin-right: 0; /* Убираем margin-right для каждого четвертого элемента */
-      }
-      &-image {
-        margin: auto;
-      }
-      &-bottom {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      &-price {
+      justify-content: space-between;
+      align-items: center;
+    }
+    &-price {
+      color: #1d232c;
+
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      &-old {
         color: #1d232c;
-  
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-decoration-line: line-through;
+      }
+      &-new {
+        color: #20e764;
         font-size: 18px;
         font-style: normal;
         font-weight: 500;
         line-height: normal;
       }
-      &-buttons {
-        display: flex;
-      }
+    }
+    &-buttons {
+      display: flex;
     }
   }
-  
-  .button-1 {
-    display: flex;
-    align-self: flex-end;
-    width: 36px;
-    height: 36px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background: #dde1e8;
-    background-repeat: no-repeat;
+
+  .next-slick-arrow *,
+  .prev-slick-arrow * {
+    fill: $secondaryColor;
+  }
+  /* Скрыть стрелки по умолчанию */
+  .slick-next,
+  .slick-prev {
+    visibility: hidden;
+    opacity: 0;
+    top: 200px;
     &:hover {
-      color: #fff;
-      background: $primaryColor;
-      .basket {
+      .next-slick-arrow *,
+      .prev-slick-arrow * {
+        fill: $primaryColor;
+        transition: fill 0.3s ease-in-out;
       }
-      &.favorites {
-      }
-    }
-    &.basket {
-      margin-left: 15px;
-      background: $secondaryColor;
-    }
-  
-    &.favorites {
-      background: $secondaryColor;
     }
   }
+
+  .slick-prev {
+    left: 10px;
+  }
+  .slick-next {
+    right: 20px;
+  }
+  .slick-next:before,
+  .slick-prev:before {
+    content: "";
+  }
+}
+
+.button-1 {
+  display: flex;
+  align-self: flex-end;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #dde1e8;
+  background-repeat: no-repeat;
+  &:hover {
+    color: #fff;
+    background: $primaryColor;
+    &.basket {
+      background: $primaryColor;
+      transition: background 0.25s ease-in-out;
+    }
+
+    &.favorites {
+      background: $primaryColor;
+      transition: background 0.25s ease-in-out;
+    }
+  }
+  &.basket {
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    .basketIcon * {
+      fill: #fff;
+    }
+  }
+  &.favorites {
+    width: 30px;
+    height: 30px;
+    .favoritesIcon * {
+      fill: #fff;
+    }
+  }
+}

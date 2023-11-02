@@ -1,5 +1,6 @@
+"use client";
 // Header.tsx
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -8,12 +9,13 @@ import "@/assets/styles/style-components/Header.scss";
 import Logo from "@/components/Logo";
 import Navigation from "@/components/Navigation";
 
-import shopping from "@/assets/images/icon-shopping-blue.svg";
-import heart from "@/assets/images/icon-heart-blue.svg";
-import union from "@/assets/images/icon-union-blue.svg";
-import search from "@/assets/images/icon-search.svg";
+import ShoppingIcon from "@/assets/images/icon-shopping.svg";
+import HeartIcon from "@/assets/images/icon-heart.svg";
+import UnionIcon from "@/assets/images/icon-union.svg";
+import SearchIcon from "@/assets/images/icon-search.svg";
 
 const Header = () => {
+  const [isShow, setIsShow] = useState(false);
   return (
     <div className="header__wrapper">
       <header className="header">
@@ -21,7 +23,11 @@ const Header = () => {
           <div className="header__inner">
             <div className="header__group-catalog">
               <Logo color="#565656" />
-              <button className="header__catalog" type="button">
+              <button
+                className="header__catalog-btn"
+                type="button"
+                onClick={() => setIsShow(!isShow)}
+              >
                 <span>&#9776;</span> Каталог
               </button>
             </div>
@@ -32,36 +38,24 @@ const Header = () => {
                 placeholder="Поиск..."
               />
               <button className="header__search-btn">
-                <Image src={search} alt="search" width={20} height={20} />
+                <SearchIcon width={20} height={20} />
               </button>
             </div>
             <nav>
               <ul className="header__nav">
                 <Link href={"/"}>
                   <li className="header__nav-item">
-                    <Image
-                      src={shopping}
-                      alt="shopping"
-                      className="header__nav-icon"
-                    />
+                    <ShoppingIcon className="header__nav-icon" />
                   </li>
                 </Link>
                 <Link href={"/"}>
                   <li className="header__nav-item">
-                    <Image
-                      src={heart}
-                      alt="heart"
-                      className="header__nav-icon"
-                    />
+                    <HeartIcon className="header__nav-icon" />
                   </li>
                 </Link>
                 <Link href={"/"}>
                   <li className="header__nav-item">
-                    <Image
-                      src={union}
-                      alt="union"
-                      className="header__nav-icon"
-                    />
+                    <UnionIcon className="header__nav-icon" />
                   </li>
                 </Link>
               </ul>
@@ -69,7 +63,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {/* <Navigation /> */}
+      {isShow && <Navigation />}
     </div>
   );
 };

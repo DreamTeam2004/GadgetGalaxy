@@ -7,7 +7,14 @@ import pcAccessories from "@/assets/images/categories/pc-accessories.png";
 import consoles from "@/assets/images/categories/consoles.png";
 import network from "@/assets/images/categories/network-equipment.png";
 
-import product from "@/assets/images/products/product.png";
+import product1 from "@/assets/images/products/product1.png";
+import product2 from "@/assets/images/products/product2.png";
+
+import DEXP from "@/assets/images/brands/DEXP.jpg";
+import XIAOMI from "@/assets/images/brands/XIAOMI.jpg";
+import SAMSUNG from "@/assets/images/brands/SAMSUNG.jpg";
+import APPLE from "@/assets/images/brands/APPLE.jpg";
+import HUAVEI from "@/assets/images/brands/HUAVEI.jpg";
 
 export const categories = [
   {
@@ -89,31 +96,104 @@ export const products = [
   {
     id: 1,
     name: "Huawei Nova 9, Qualcomm SM7325 Snapdragon 778G",
-    image: product,
+    rating: 5,
+    reviewsCount: 798,
+    image: product1,
     price: 300,
+    categoryID: 2,
+    newPrice: 100, 
   },
   {
     id: 2,
-    name: "Huawei Nova 9, Qualcomm SM7325 Snapdragon 778G",
-    image: product,
-    price: 300,
+    name: "IPS LED Lenovo ThinkVision 27",
+    rating: 3,
+    reviewsCount: 355,
+    image: product2,
+    price: 180,
+    categoryID: 1, 
+    newPrice: 75, 
   },
   {
     id: 3,
     name: "Huawei Nova 9, Qualcomm SM7325 Snapdragon 778G",
-    image: product,
+    rating: 5,
+    reviewsCount: 798,
+    image: product1,
     price: 300,
+    categoryID: 2,
+    newPrice: 100,  
   },
   {
     id: 4,
-    name: "Huawei Nova 9, Qualcomm SM7325 Snapdragon 778G",
-    image: product,
-    price: 300,
+    name: "IPS LED Lenovo ThinkVision 27",
+    rating: 3,
+    reviewsCount: 355,
+    image: product2,
+    price: 180,
+    categoryID: 1, 
+    newPrice: 75, 
   },
   {
     id: 5,
     name: "Huawei Nova 9, Qualcomm SM7325 Snapdragon 778G",
-    image: product,
+    rating: 5,
+    reviewsCount: 798,
+    image: product1,
     price: 300,
-  }
+    categoryID: 2, 
+    newPrice: 100, 
+  },
+  {
+    id: 6,
+    name: "IPS LED Lenovo ThinkVision 27",
+    rating: 3,
+    reviewsCount: 355,
+    image: product2,
+    price: 180,
+    categoryID: 1, 
+    newPrice: 75, 
+  },
+]
+
+export const brands = [
+  {
+    id: 1,
+    name: "DEXP",
+    image: DEXP,
+  },
+  {
+    id: 2,
+    name: "XIAOMI",
+    image: XIAOMI,
+  },
+  {
+    id: 3,
+    name: "SAMSUNG",
+    image: SAMSUNG,
+  },
+  {
+    id: 4,
+    name: "APPLE",
+    image: APPLE,
+  },
+  {
+    id: 5,
+    name: "HUAVEI",
+    image: HUAVEI,
+  },
+  {
+    id: 6,
+    name: "APPLE",
+    image: APPLE,
+  },
+  {
+    id: 7,
+    name: "APPLE",
+    image: APPLE,
+  },
+  {
+    id: 8,
+    name: "APPLE",
+    image: APPLE,
+  },
 ]

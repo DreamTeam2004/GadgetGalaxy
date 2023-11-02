@@ -1,0 +1,78 @@
+@import "../vars";
+
+.brands {
+  display: flex;
+  padding-bottom: 10px;
+  align-items: center;
+  &:hover {
+    .slick-prev,
+    .slick-next {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.7s ease-in-out;
+      z-index: 10;
+    }
+  }
+  &__item {
+    max-width: 270px;
+    // height: 385px;
+    padding: 20px;
+    margin: 10px;
+
+    border-radius: 20px;
+    background: #fff;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+    &-image {
+      margin: 0 auto 15px auto;
+    }
+  }
+
+  /* Скрыть стрелки по умолчанию */
+  .slick-prev,
+  .slick-next {
+    visibility: hidden;
+    opacity: 0;
+    width: 50px;
+    height: 50px;
+    top: 100px;
+    background: $secondaryColor;
+    border-radius: 50%;
+    &:hover {
+      background: $primaryColor;
+      transition: background 0.3s ease-in-out;
+    }
+    img {
+      margin-top: 10px;
+      margin: 10px auto;
+    }
+  }
+  .slick-prev {
+    left: 35px;
+  }
+  .slick-next {
+    right: 35px;
+  }
+  .slick-next:before,
+  .slick-prev:before {
+    content: none;
+  }
+
+  .next-slick-arrow,
+  .prev-slick-arrow {
+    margin-top: 9px;
+  }
+  .next-slick-arrow *,
+  .prev-slick-arrow * {
+    stroke: #fff;
+  }
+  .next-slick-arrow {
+    margin-left: 10px;
+  }
+  .prev-slick-arrow {
+    margin-left: 10px;
+  }
+}

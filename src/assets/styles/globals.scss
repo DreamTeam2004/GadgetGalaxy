@@ -27,6 +27,14 @@ main {
   // padding: 0 5px;
 }
 
+h1 {
+  color: white;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
 h2 {
   display: inline-block;
   color: #1d232c;
@@ -35,6 +43,7 @@ h2 {
   font-weight: 500;
   line-height: normal;
   border-bottom: 2px solid $primaryColor;
+  margin-top: 10px;
   margin-bottom: 25px;
 }
 
