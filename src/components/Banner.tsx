@@ -7,9 +7,9 @@ import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-import slide1 from "@/assets/images/banner/slide1.jpg";
-import slide2 from "@/assets/images/banner/slide2.jpg";
-import slide3 from "@/assets/images/banner/slide3.jpg";
+import slide1 from "@/assets/images/banner/slide1.png";
+import slide2 from "@/assets/images/banner/slide2.png";
+import slide3 from "@/assets/images/banner/slide3.png";
 
 import "@/assets/styles/style-components/Banner.scss";
 
@@ -22,59 +22,118 @@ const Banner = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5500,
+    responsive: [
+      {
+        breakpoint: 767,
+        settings: {
+          dots: false,
+        },
+      },
+    ],
   };
 
   return (
     <Slider {...settings}>
-      <div className="banner__slide">
-        <Image src={slide1} alt="slide1" className="banner__image" />
-        <div className="banner__text">
-          <motion.h1
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            НОВЫЙ <b className="banner__title-bold">NAMPHONE</b>
-            <br />
-            РЕЛИЗ ЭТОЙ ОСЕНЬЮ
-          </motion.h1>
-          <button className="banner__button">Узнать больше</button>
-        </div>
-      </div>
-
-      <div className="banner__slide">
-        <Image src={slide2} alt="slide2" className="banner__image" />
-        <div className="banner__text">
-          <motion.h1
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="banner__title"
-          >
-            ИГРОВАЯ <b className="banner__title-bold">ПРИСТАВКА</b>
-            <br />
-            X245-HD
-          </motion.h1>
-          <button className="banner__button">Узнать больше</button>
-        </div>
-      </div>
-
-      <div className="banner__slide">
-        <Image src={slide3} alt="slide3" className="banner__image" />
-        <div className="banner__text">
-          <div className="container">
-            <motion.h1
-              initial={{ y: 30, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
+      <div className="banner__slide banner__slide--one">
+        <div className="container">
+          <div className="banner__slide-inner">
+            <div className="banner__text">
+              <motion.h1
+                initial={{ x: -100, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="banner__title"
+              >
+                НОВЫЙ <b className="banner__title-bold">NAMPHONE</b>
+                <br />
+                РЕЛИЗ ЭТОЙ ОСЕНЬЮ
+              </motion.h1>
+              <motion.button
+                initial={{ y: 75, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="banner__button"
+              >
+                Узнать больше
+              </motion.button>
+            </div>
+            <motion.div
+              initial={{ x: 250, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.75 }}
             >
-              ПОДДЕРЖИВАЙТЕ СВОЮ
-              <br />
-              ФОРМУ С ПОМОЩЬЮ
-              <br />
-              НОВЫХ <b className="banner__title-bold">ГАДЖЕТОВ</b>
-            </motion.h1>
-            <button className="banner__button">Узнать больше</button>
+              <Image src={slide1} alt="slide1" className="banner__image" />
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      <div className="banner__slide banner__slide--two">
+        <div className="container">
+          <div className="banner__slide-inner">
+            <div className="banner__text">
+              <motion.h1
+                initial={{ x: -100, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="banner__title"
+              >
+                ИГРОВАЯ <b className="banner__title-bold">ПРИСТАВКА</b>
+                <br />
+                X245-HD
+              </motion.h1>
+              <motion.button
+                initial={{ y: 75, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="banner__button"
+              >
+                Узнать больше
+              </motion.button>
+            </div>
+            <motion.div
+              initial={{ x: 250, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.75 }}
+            >
+              <Image src={slide2} alt="slide2" className="banner__image" />
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      <div className="banner__slide banner__slide--three">
+        <div className="container">
+          <div className="banner__slide-inner">
+            <div className="banner__text">
+              <motion.h1
+                initial={{ x: -150, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="banner__title"
+              >
+                ПОДДЕРЖИВАЙТЕ СВОЮ
+                <br />
+                ФОРМУ С ПОМОЩЬЮ
+                <br />
+                НОВЫХ <b className="banner__title-bold">ГАДЖЕТОВ</b>
+              </motion.h1>
+              <motion.button
+                initial={{ x: 75, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="banner__button"
+              >
+                Узнать больше
+              </motion.button>
+            </div>
+            <motion.div
+              initial={{ x: 250, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.75 }}
+            >
+              <Image src={slide3} alt="slide3" className="banner__image" />
+            </motion.div>
           </div>
         </div>
       </div>

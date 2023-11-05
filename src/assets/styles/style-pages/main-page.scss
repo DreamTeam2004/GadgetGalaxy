@@ -1,36 +1,80 @@
-@import "../vars.scss";
-
-.banner__container {
-  max-width: 1920px;
-  overflow: hidden;
-  margin: 0 auto;
-}
+@import "../vars";
+@import "../mixins";
+@import "../ui//buttons.scss";
 
 .categories {
   background-color: #eef0f4;
   &__inner {
     padding: 10px 0 60px 0;
+    @include laptop {
+      padding: 10px 0 50px 0;
+    }
+    @include tablet {
+      padding: 10px 0 35px 0;
+    }
+    @include mobile {
+      padding: 5px 0 25px 0;
+    }
   }
   &__list {
     display: flex;
     flex-wrap: wrap;
     &-item {
       background-color: #fff;
-      width: 345px;
       display: flex;
       flex-direction: column;
-      padding: 20px;
-      margin-bottom: 20px;
-      margin-right: 20px;
-      gap: 20px;
-
       cursor: pointer;
       align-items: center;
 
-      opacity: 1;
+      @include desktop {
+        width: calc(
+          25% - 20px
+        ); /* 25% ширины контейнера минус отступы между элементами */
+        display: flex;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        gap: 20px;
+        &:nth-child(4n) {
+          width: 25%;
+          margin-right: 0; /* Убираем margin-right для каждого четвертого элемента */
+        }
+      }
 
-      &:nth-child(4n) {
-        margin-right: 0; /* Убираем margin-right для каждого четвертого элемента */
+      @include laptop {
+        width: calc(
+          25% - 15px
+        ); /* 25% ширины контейнера минус отступы между элементами */
+        padding: 15px;
+        margin-bottom: 15px;
+        margin-right: 15px;
+        gap: 15px;
+        &:nth-child(4n) {
+          width: 25%;
+          margin-right: 0;
+        }
+      }
+      @include tablet {
+        width: calc(33% - 10px);
+        padding: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        gap: 10px;
+        &:nth-child(3n) {
+          width: 33%;
+          margin-right: 0;
+        }
+      }
+      @include mobile {
+        width: calc(50% - 5px);
+        padding: 5px;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        gap: 5px;
+        &:nth-child(2n) {
+          width: 50%;
+          margin-right: 0;
+        }
       }
 
       &:hover {
@@ -42,111 +86,195 @@
           cursor: pointer;
         }
       }
+      &-image {
+        height: 200px;
+        width: 200px;
+        @include laptop {
+          height: 175px;
+          width: 175px;
+        }
+        @include tablet {
+          height: 150px;
+          width: 150px;
+        }
+        @include mobile {
+          height: 75px;
+          width: 75px;
+        }
+      }
+      & button {
+        @include tablet {
+          display: none;
+        }
+        @include mobile {
+          display: none;
+        }
+      }
     }
-  }
-  &__title {
-    color: #1d232c;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
   }
 }
 
 .brands {
   margin: 30px 0;
+  @include laptop {
+    margin: 25px 0;
+  }
+  @include tablet {
+    margin: 15px 0;
+  }
+  @include mobile {
+    margin: 10px 0 0;
+  }
 }
 
 .popular {
   margin-bottom: 25px;
-  &__buttons {
-    display: flex;
+  @include laptop {
+    margin-bottom: 20px;
+  }
+  @include tablet {
+    margin-bottom: 15px;
+  }
+  @include mobile {
+    margin-bottom: 10px;
   }
 }
 
 .new {
   margin-bottom: 25px;
+  @include laptop {
+    margin-bottom: 20px;
+  }
+  @include tablet {
+    margin-bottom: 15px;
+  }
+  @include mobile {
+    margin-bottom: 10px;
+  }
 }
 
 .commercial {
-  position: relative;
   margin-bottom: 40px;
-  &__button {
-    display: flex;
-    position: absolute;
-    top: 60%;
-    left: 15%;
-    
-    font-size: 16px;
-    font-weight: 600;
-    background-color: $primaryColor;
-    color: #fff;
-    padding: 15px 30px;
-    font-size: 16px;
-    margin-top: 35px;
-    cursor: pointer;
-    z-index: 10;
-    &-image {
-      margin-left: 15px;
+  @include laptop {
+    margin-bottom: 25px;
+  }
+  @include tablet {
+    margin-bottom: 15px;
+  }
+  @include mobile {
+    margin-bottom: 10px;
+  }
+  &__image {
+    width: 100%;
+    height: 425px;
+    object-fit: cover;
+    &--mobile {
+      display: none;
+      object-fit: cover;
+      width: 100%;
+      max-height: 250px;
+    }
+    @include laptop {
+      max-height: 315px;
+    }
+    @include tablet {
+      max-height: 235px;
+    }
+    @include mobile {
+      display: none;
+      &--mobile {
+        display: block;
+      }
     }
   }
 }
 
 .discounts {
   margin-bottom: 55px;
+  @include laptop {
+    margin-bottom: 45px;
+  }
+  @include tablet {
+    margin-bottom: 35px;
+  }
+  @include mobile {
+    margin-bottom: 25px;
+  }
 }
 
 .advantages {
   background: #eef0f4;
   &__inner {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     padding: 50px 0;
+    @include laptop {
+      padding: 40px 0;
+    }
+    @include tablet {
+      padding: 15px 0;
+    }
+    @include mobile {
+      padding: 5px 0;
+      justify-content: space-evenly;
+    }
   }
   &__item {
     display: flex;
     padding: 25px 5px;
+    @include laptop {
+      padding: 20px 5px;
+    }
+    @include tablet {
+      padding: 15px 5px;
+    }
+    @include mobile {
+      padding: 10px 5px;
+    }
     &-image {
+      height: 40px;
+      width: 40px;
       align-self: center;
       margin-right: 15px;
+
+      @include tablet {
+        height: 35px;
+        width: 35px;
+        margin-right: 10px;
+      }
+      @include mobile {
+        height: 25px;
+        width: 25px;
+        margin-right: 10px;
+      }
     }
+    // &-text {
+    // }
     &-title {
       font-size: 16px;
       font-weight: 700;
       margin-bottom: 5px;
+      max-width: 110px;
+      @include tablet {
+        font-size: 14px;
+        max-width: 90px;
+      }
+      @include mobile {
+        font-size: 14px;
+        max-width: 90px;
+      }
     }
     &-subtitle {
       font-size: 14px;
       font-weight: 400;
+      @include tablet {
+        font-size: 12px;
+      }
+      @include mobile {
+        font-size: 12px;
+      }
     }
-  }
-}
-
-.button-1 {
-  display: flex;
-  align-self: flex-end;
-  width: 36px;
-  height: 36px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background: #dde1e8;
-  background-repeat: no-repeat;
-  &:hover {
-    color: #fff;
-    background: $primaryColor;
-    .basket {
-    }
-    &.favorites {
-    }
-  }
-  &.basket {
-    margin-left: 15px;
-    background: $secondaryColor;
-  }
-
-  &.favorites {
-    background: $secondaryColor;
   }
 }

@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import HeaderMobile from "@/components/HeaderMobile";
 import Footer from "@/components/Footer";
 
 import type { Metadata } from "next";
@@ -22,6 +23,7 @@ export default function RootLayout({
           {children}
         </div>
         <Footer />
+        <HeaderMobile />
       </body>
     </html>
   );

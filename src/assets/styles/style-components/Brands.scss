@@ -1,9 +1,7 @@
 @import "../vars";
+@import "../mixins";
 
 .brands {
-  display: flex;
-  padding-bottom: 10px;
-  align-items: center;
   &:hover {
     .slick-prev,
     .slick-next {
@@ -14,21 +12,47 @@
     }
   }
   &__item {
-    max-width: 270px;
-    // height: 385px;
-    padding: 20px;
-    margin: 10px;
+    padding: 5px;
+    margin: 10px 15px;
+    max-width: 225px;
 
     border-radius: 20px;
     background: #fff;
     cursor: pointer;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+    @include laptop {
+      margin: 10px 10px;
+      max-width: 185px;
+    }
+    @include tablet {
+      margin: 10px 10px;
+      max-width: 175px;
+    }
+    @include mobile {
+      margin: 5px 5px;
+      max-width: 115px;
+    }
     &:hover {
-      box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
+      box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
       transition: box-shadow 0.3s ease-in-out;
     }
     &-image {
-      margin: 0 auto 15px auto;
+      margin: auto;
+      @include laptop {
+        height: 110px;
+      }
+      @include tablet {
+        height: 100px;
+      }
+      @include mobile {
+        height: 65px;
+      }
     }
+  }
+
+  .slick-slide {
+    display: flex;
+    justify-content: center;
   }
 
   /* Скрыть стрелки по умолчанию */
@@ -38,12 +62,24 @@
     opacity: 0;
     width: 50px;
     height: 50px;
-    top: 100px;
+    top: 75px;
     background: $secondaryColor;
     border-radius: 50%;
     &:hover {
       background: $primaryColor;
       transition: background 0.3s ease-in-out;
+    }
+    @include tablet {
+      background: none;
+      &:hover {
+        background: none;
+      }
+    }
+    @include mobile {
+      background: none;
+      &:hover {
+        background: none;
+      }
     }
     img {
       margin-top: 10px;
@@ -51,10 +87,10 @@
     }
   }
   .slick-prev {
-    left: 35px;
+    left: 5px;
   }
   .slick-next {
-    right: 35px;
+    right: 5px;
   }
   .slick-next:before,
   .slick-prev:before {

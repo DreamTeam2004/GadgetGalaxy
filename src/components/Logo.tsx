@@ -9,9 +9,7 @@ import LogoIcon from "@/assets/images/logo.svg";
 const Logo = ({ color }: { color: string }) => {
   return (
     <Link href={"/"} className="logo">
-      <div>
-        <LogoIcon width={44} height={44} className="logo-img" />
-      </div>
+        <LogoIcon className="logo-img" />
       <div className="logo-text">
         <p className="logo-text" style={{ color }}>
           <span className="logo-text__first">GADGET</span>GALAXY

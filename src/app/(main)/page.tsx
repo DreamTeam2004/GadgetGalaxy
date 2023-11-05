@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import ArrowIcon from "@/assets/images/icon-arrow.svg";
 import mackbook from "@/assets/images/banner/macbookPro.png";
+import mackbookMobile from "@/assets/images/banner/macbookProMobile.jpg";
 import AdvantageIcon1 from "@/assets/images/advantages/advantage1.svg";
 import AdvantageIcon2 from "@/assets/images/advantages/advantage2.svg";
 import AdvantageIcon3 from "@/assets/images/advantages/advantage3.svg";
@@ -26,9 +27,7 @@ export const metadata = {
 export default function Home() {
   return (
     <main>
-      <div className="banner__container">
-        <Banner />
-      </div>
+      <Banner />
       <section className="categories">
         <div className="container">
           <div className="categories__inner">
@@ -38,10 +37,9 @@ export default function Home() {
                 <div className="categories__list-item" key={category.id}>
                   <h3>{category.name}</h3>
                   <Image
+                    className="categories__list-item-image"
                     src={category.image}
                     alt={category.name}
-                    width={200}
-                    height={200}
                   />
                   <button className="button-1">
                     <ArrowIcon width={16} height={16} />
@@ -75,13 +73,14 @@ export default function Home() {
       </section>
       <section className="commercial">
         <div className="container">
-          <Image src={mackbook} alt="slide1" className="commercial__image" />
-          <button className="commercial__button">
-            КУПИТЬ СЕЙЧАС
-            <span className="commercial__button-image">
-              <ArrowIcon width={20} height={20} />
-            </span>
-          </button>
+          <Link href={"/"}>
+            <Image src={mackbook} alt="slide1" className="commercial__image" />
+            <Image
+              src={mackbookMobile}
+              alt="slide1"
+              className="commercial__image--mobile"
+            />
+          </Link>
         </div>
       </section>
       <section className="discounts">
@@ -96,36 +95,28 @@ export default function Home() {
         <div className="container">
           <div className="advantages__inner">
             <div className="advantages__item">
-              <div className="advantages__item-image">
-                <AdvantageIcon1 height={40} width={40} />
-              </div>
+              <AdvantageIcon1 className="advantages__item-image" />
               <div className="advantages__item-text">
                 <div className="advantages__item-title">Гарантия</div>
                 <div className="advantages__item-subtitle">24 месяца</div>
               </div>
             </div>
             <div className="advantages__item">
-              <div className="advantages__item-image">
-                <AdvantageIcon2 height={40} width={40} />
-              </div>
+              <AdvantageIcon2 className="advantages__item-image" />
               <div className="advantages__item-text">
                 <div className="advantages__item-title">Гарантия</div>
                 <div className="advantages__item-subtitle">6-12 месяцев</div>
               </div>
             </div>
             <div className="advantages__item">
-              <div className="advantages__item-image">
-                <AdvantageIcon3 height={40} width={40} />
-              </div>
+              <AdvantageIcon3 className="advantages__item-image" />
               <div className="advantages__item-text">
                 <div className="advantages__item-title">Платежи</div>
                 <div className="advantages__item-subtitle">Защищены</div>
               </div>
             </div>
             <div className="advantages__item">
-              <div className="advantages__item-image">
-                <AdvantageIcon4 height={40} width={40} />
-              </div>
+              <AdvantageIcon4 className="advantages__item-image" />
               <div className="advantages__item-text">
                 <div className="advantages__item-title">
                   Бесплатная доставка
@@ -134,9 +125,7 @@ export default function Home() {
               </div>
             </div>
             <div className="advantages__item">
-              <div className="advantages__item-image">
-                <AdvantageIcon5 height={40} width={40} />
-              </div>
+              <AdvantageIcon5 className="advantages__item-image" />
               <div className="advantages__item-text">
                 <div className="advantages__item-title">Бренды</div>
                 <div className="advantages__item-subtitle">Только лучшие</div>

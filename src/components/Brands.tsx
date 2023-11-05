@@ -32,6 +32,24 @@ export default function Brands() {
         <ArrowLeftIcon width={30} className="prev-slick-arrow" />
       </div>
     ),
+    responsive: [
+      {
+        breakpoint: 1023,
+        settings: {
+          slidesToShow: 4,
+          nextArrow: <div />,
+          prevArrow: <div />,
+        },
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 3,
+          nextArrow: <div />,
+          prevArrow: <div />,
+        },
+      },
+    ],
   };
   return (
     <Slider {...settings} className="brands">

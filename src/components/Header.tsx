@@ -17,54 +17,55 @@ import SearchIcon from "@/assets/images/icon-search.svg";
 const Header = () => {
   const [isShow, setIsShow] = useState(false);
   return (
-    <div className="header__wrapper">
-      <header className="header">
-        <div className="container">
-          <div className="header__inner">
-            <div className="header__group-catalog">
-              <Logo color="#565656" />
-              <button
-                className="header__catalog-btn"
-                type="button"
-                onClick={() => setIsShow(!isShow)}
-              >
-                <span>&#9776;</span> Каталог
-              </button>
+      <div className="header__wrapper">
+        <header className="header">
+          <div className="container">
+            <div className="header__inner">
+              <div className="header__group-catalog">
+                <Logo color="#565656" />
+                <button
+                  className="header__catalog-btn"
+                  type="button"
+                  onClick={() => setIsShow(!isShow)}
+                >
+                  <span className="header__catalog-btn-burger">&#9776;</span>
+                  <span className="header__catalog-btn-text">Каталог</span>
+                </button>
+              </div>
+              <div className="header__search">
+                <input
+                  className="header__search-input"
+                  type="input"
+                  placeholder="Поиск..."
+                />
+                <button className="header__search-btn">
+                  <SearchIcon width={20} height={20} />
+                </button>
+              </div>
+              <nav>
+                <ul className="header__nav">
+                  <Link href={"/"}>
+                    <li className="header__nav-item">
+                      <ShoppingIcon className="header__nav-icon" />
+                    </li>
+                  </Link>
+                  <Link href={"/"}>
+                    <li className="header__nav-item">
+                      <HeartIcon className="header__nav-icon" />
+                    </li>
+                  </Link>
+                  <Link href={"/"}>
+                    <li className="header__nav-item">
+                      <UnionIcon className="header__nav-icon" />
+                    </li>
+                  </Link>
+                </ul>
+              </nav>
             </div>
-            <div className="header__search">
-              <input
-                className="header__search-input"
-                type="input"
-                placeholder="Поиск..."
-              />
-              <button className="header__search-btn">
-                <SearchIcon width={20} height={20} />
-              </button>
-            </div>
-            <nav>
-              <ul className="header__nav">
-                <Link href={"/"}>
-                  <li className="header__nav-item">
-                    <ShoppingIcon className="header__nav-icon" />
-                  </li>
-                </Link>
-                <Link href={"/"}>
-                  <li className="header__nav-item">
-                    <HeartIcon className="header__nav-icon" />
-                  </li>
-                </Link>
-                <Link href={"/"}>
-                  <li className="header__nav-item">
-                    <UnionIcon className="header__nav-icon" />
-                  </li>
-                </Link>
-              </ul>
-            </nav>
           </div>
-        </div>
-      </header>
-      {isShow && <Navigation />}
-    </div>
+        </header>
+        {isShow && <Navigation />}
+      </div>
   );
 };
 

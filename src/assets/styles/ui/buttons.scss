@@ -1,0 +1,52 @@
+.button-1 {
+  display: flex;
+  align-self: flex-end;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #dde1e8;
+  background-repeat: no-repeat;
+  @include laptop {
+    width: 30px;
+    height: 30px;
+  }
+  @include tablet {
+    width: 25px;
+    height: 25px;
+  }
+  @include mobile {
+    width: 15px;
+    height: 15px;
+  }
+
+  &:hover {
+    color: #fff;
+    background: $primaryColor;
+    &.basket {
+      background: $primaryColor;
+      transition: background 0.25s ease-in-out;
+    }
+
+    &.favorites {
+      background: $primaryColor;
+      transition: background 0.25s ease-in-out;
+    }
+  }
+  &.basket {
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    .basketIcon * {
+      fill: #fff;
+    }
+  }
+  &.favorites {
+    width: 30px;
+    height: 30px;
+    .favoritesIcon * {
+      fill: #fff;
+    }
+  }
+}

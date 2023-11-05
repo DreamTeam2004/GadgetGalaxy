@@ -44,6 +44,30 @@ const ProductsSlider: React.FC<ProductsSliderProps> = ({
         <ArrowPrevIcon width={35} height={35} className="prev-slick-arrow" />
       </div>
     ),
+    responsive: [
+      {
+        breakpoint: 1279,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 1023,
+        settings: {
+          slidesToShow: 3,
+          nextArrow: <div />,
+          prevArrow: <div />,
+        },
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 2,
+          nextArrow: <div />,
+          prevArrow: <div />,
+        },
+      },
+    ],
   };
 
   return (
@@ -69,8 +93,6 @@ const ProductsSlider: React.FC<ProductsSliderProps> = ({
               className="list__item-image"
               src={product.image}
               alt={product.name}
-              width={200}
-              height={200}
             />
             <div className="list__item-bottom">
               {isDiscounts ? (

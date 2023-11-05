@@ -1,8 +1,8 @@
-@import "../vars.scss";
+@import "../vars";
+@import "../mixins";
+@import "../ui//buttons.scss";
 
 .list {
-  display: flex;
-  padding-bottom: 10px;
   &:hover {
     .slick-next,
     .slick-prev {
@@ -13,27 +13,47 @@
     }
   }
   &__item {
-    max-width: 270px;
-    height: 385px;
+    max-width: 235px;
+    // height: 385px;
     padding: 20px;
     margin: 10px;
 
     border-radius: 20px;
     border: 0px solid #eef0f4;
     background: #fff;
-    box-shadow: 0px 0px 10px 0px rgba(107, 107, 107, 0.33);
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     &:hover {
-      box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
+      box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
       transition: box-shadow 0.3s ease-in-out;
       .list__item-name {
         color: $primaryColor;
         transition: color 0.2s ease-in-out;
       }
     }
-
+    @include laptop {
+      max-width: 235px;
+      padding: 15px;
+      margin: 5px 10px;
+    }
+    @include tablet {
+      max-width: 235px;
+      padding: 15px 10px;
+      margin: 5px 5px;
+    }
+    @include mobile {
+      max-width: 175px;
+      padding: 15px 10px;
+      margin: 5px 5px;
+    }
     &-text {
       height: 85px;
+      @include tablet {
+        height: 65px;
+      }
+      @include mobile {
+        height: 50px;
+      }
     }
     &-category {
       color: #5f6c72;
@@ -42,15 +62,37 @@
       font-weight: 400;
       line-height: normal;
       margin-bottom: 10px;
+      @include laptop {
+        font-size: 12px;
+      }
+      @include tablet {
+        display: none;
+      }
+      @include mobile {
+        display: none;
+      }
     }
 
     &-image {
+      height: 200px;
       margin: 15px auto;
+      @include laptop {
+        height: 185px;
+      }
+      @include tablet {
+        height: 185px;
+      }
+      @include mobile {
+        height: 145px;
+        margin: 10px auto 25px;
+      }
     }
     &-bottom {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      @include mobile {
+        flex-direction: column;
+      }
     }
     &-price {
       color: #1d232c;
@@ -59,6 +101,9 @@
       font-style: normal;
       font-weight: 500;
       line-height: normal;
+      @include mobile {
+        font-size: 20px;
+      }
       &-old {
         color: #1d232c;
         font-size: 12px;
@@ -66,18 +111,31 @@
         font-weight: 400;
         line-height: normal;
         text-decoration-line: line-through;
+        @include mobile {
+          font-size: 14px;
+        }
       }
       &-new {
         color: #20e764;
-        font-size: 18px;
+        font-size: 20px;
         font-style: normal;
         font-weight: 500;
         line-height: normal;
+        margin-top: 10px;
       }
     }
     &-buttons {
       display: flex;
+      @include mobile {
+        margin-top: 5px;
+        align-self: flex-end;
+      }
     }
+  }
+
+  .slick-slide {
+    display: flex;
+    justify-content: center;
   }
 
   .next-slick-arrow *,
@@ -100,53 +158,13 @@
   }
 
   .slick-prev {
-    left: 10px;
+    left: -7px;
   }
   .slick-next {
-    right: 20px;
+    right: 9px;
   }
   .slick-next:before,
   .slick-prev:before {
     content: "";
-  }
-}
-
-.button-1 {
-  display: flex;
-  align-self: flex-end;
-  width: 36px;
-  height: 36px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background: #dde1e8;
-  background-repeat: no-repeat;
-  &:hover {
-    color: #fff;
-    background: $primaryColor;
-    &.basket {
-      background: $primaryColor;
-      transition: background 0.25s ease-in-out;
-    }
-
-    &.favorites {
-      background: $primaryColor;
-      transition: background 0.25s ease-in-out;
-    }
-  }
-  &.basket {
-    margin-left: 10px;
-    width: 30px;
-    height: 30px;
-    .basketIcon * {
-      fill: #fff;
-    }
-  }
-  &.favorites {
-    width: 30px;
-    height: 30px;
-    .favoritesIcon * {
-      fill: #fff;
-    }
   }
 }
