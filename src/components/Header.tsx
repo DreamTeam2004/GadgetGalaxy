@@ -1,64 +1,71 @@
+"use client";
 // Header.tsx
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import '@/assets/styles/style-components/Header.scss';
+import "@/assets/styles/style-components/Header.scss";
 
 import Logo from "@/components/Logo";
+import Navigation from "@/components/Navigation";
 
-import shopping from "@/assets/images/icon-shopping.svg";
-import heart from "@/assets/images/icon-heart.svg";
-import union from "@/assets/images/icon-union.svg";
-import search from "@/assets/images/icon-search.svg";
+import ShoppingIcon from "@/assets/images/icon-shopping.svg";
+import HeartIcon from "@/assets/images/icon-heart.svg";
+import UnionIcon from "@/assets/images/icon-union.svg";
+import SearchIcon from "@/assets/images/icon-search.svg";
 
 const Header = () => {
+  const [isShow, setIsShow] = useState(false);
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__inner">
-          <div className="header__group-catalog">
-            <Logo color="#565656" />
-            <button className="header__catalog">
-              <span>&#9776;</span> Каталог
-            </button>
+      <div className="header__wrapper">
+        <header className="header">
+          <div className="container">
+            <div className="header__inner">
+              <div className="header__group-catalog">
+                <Logo color="#565656" />
+                <button
+                  className="header__catalog-btn"
+                  type="button"
+                  onClick={() => setIsShow(!isShow)}
+                >
+                  <span className="header__catalog-btn-burger">&#9776;</span>
+                  <span className="header__catalog-btn-text">Каталог</span>
+                </button>
+              </div>
+              <div className="header__search">
+                <input
+                  className="header__search-input"
+                  type="input"
+                  placeholder="Поиск..."
+                />
+                <button className="header__search-btn">
+                  <SearchIcon width={20} height={20} />
+                </button>
+              </div>
+              <nav>
+                <ul className="header__nav">
+                  <Link href={"/"}>
+                    <li className="header__nav-item">
+                      <ShoppingIcon className="header__nav-icon" />
+                    </li>
+                  </Link>
+                  <Link href={"/"}>
+                    <li className="header__nav-item">
+                      <HeartIcon className="header__nav-icon" />
+                    </li>
+                  </Link>
+                  <Link href={"/"}>
+                    <li className="header__nav-item">
+                      <UnionIcon className="header__nav-icon" />
+                    </li>
+                  </Link>
+                </ul>
+              </nav>
+            </div>
           </div>
-          <div className="header__search">
-            <input
-              className="header__search-input"
-              type="input"
-              placeholder="Поиск..."
-            />
-            <button className="header__search-btn">
-              <Image src={search} alt="search" width={20} height={20} />
-            </button>
-          </div>
-          <nav>
-            <ul className="header__nav">
-              <Link href={"/"}>
-                <li className="header__nav-item">
-                  <Image
-                    src={shopping}
-                    alt="shopping"
-                    className="header__nav-icon"
-                  />
-                </li>
-              </Link>
-              <Link href={"/"}>
-                <li className="header__nav-item">
-                  <Image src={heart} alt="heart" className="header__nav-icon" />
-                </li>
-              </Link>
-              <Link href={"/"}>
-                <li className="header__nav-item">
-                  <Image src={union} alt="union" className="header__nav-icon" />
-                </li>
-              </Link>
-            </ul>
-          </nav>
-        </div>
+        </header>
+        {isShow && <Navigation />}
       </div>
-    </header>
   );
 };
 

@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import HeaderMobile from "@/components/HeaderMobile";
 import Footer from "@/components/Footer";
 
 import type { Metadata } from "next";
@@ -16,11 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <div className="wrapper">
-        <Header />
-        {children}
-      </div>
-      <Footer />
+      <body>
+        <div className="wrapper">
+          <Header />
+          {children}
+        </div>
+        <Footer />
+        <HeaderMobile />
+      </body>
     </html>
   );
 }

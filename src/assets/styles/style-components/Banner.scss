@@ -1,0 +1,141 @@
+@import "../vars";
+@import "../mixins";
+.banner {
+  &__slide {
+    &--one {
+      background: linear-gradient(96deg, #dcadfa 0%, #a82df4 100%);
+    }
+    &--two {
+      background: linear-gradient(90deg, #8caaf5 0%, #443c49 100%);
+    }
+    &--three {
+      background: linear-gradient(90deg, #ffb39b 0%, #d42828 100%);
+    }
+  }
+
+  &__slide-inner {
+    display: flex;
+    justify-content: space-evenly;
+    
+    align-items: center;
+    height: 585px;
+    @include laptop {
+      max-height: 450px;
+    }
+    @include tablet {
+      max-height: 300px; 
+    }
+    @include mobile {
+      max-height: 475px;
+      flex-direction: column-reverse;
+      justify-content: flex-end;
+    }
+  }
+  &__image {
+    object-fit:  contain;
+    @include laptop {
+      max-height: 450px;
+    }
+    @include tablet {
+       max-height: 300px;
+    }
+    @include mobile {
+      margin-bottom: 15px;
+      max-height: 315px;
+    }
+  
+  }
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    padding-left: 35px;
+    @include laptop {
+      padding-left: 25px;
+    }
+    @include tablet {
+      padding-left: 15px;
+    }
+    @include mobile {
+      padding-left: 5px;
+    }
+  }
+  &__title {
+    // white-space: "pre-line";
+    &-bold {
+      font-weight: 600;
+    }
+  }
+  &__button {
+    background-color: $primaryColor;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    margin-top: 35px;
+    cursor: pointer;
+    max-width: 160px;
+    @include laptop {
+      margin-top: 25px;
+    }
+    @include tablet {
+      margin-top: 15px;
+      font-size: 14px;
+      padding: 10px 10px;
+    }
+    @include mobile {
+      display: flex;
+      align-self: center;
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 10px 15px;
+      max-width: 125px;
+    }
+  }
+}
+
+.slick-slide img {
+  // display: flex;
+  // align-self: flex-end;
+}
+
+.slick-slider {
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Стилизация точек в Slick Slider */
+.slick-dots {
+  bottom: 15px;
+  display: flex; /* Устанавливаем flex для выравнивания точек по центру */
+  justify-content: center; /* Выравниваем точки по центру по горизонтали */
+  list-style: none; /* Убираем стандартное маркерное начертание */
+  padding: 0; /* Убираем внутренние отступы */
+}
+
+.slick-dots li {
+  margin: 0 5px; /* Устанавливаем отступ между точками */
+}
+
+.slick-dots li button {
+  width: 3px; /* Устанавливаем ширину точки */
+  height: 3px; /* Устанавливаем высоту точки */
+  background-color: #fff; /* Устанавливаем цвет фона точки */
+  border: none; /* Убираем границу точки */
+  border-radius: 50%; /* Делаем точку круглой */
+  cursor: pointer;
+}
+
+.slick-dots li.slick-active button {
+  background-color: $primaryColor; /* Устанавливаем цвет фона для активной точки */
+  width: 10px;
+  border-radius: 35%;
+}
+
+.slick-dots li button:before {
+  position: relative;
+  content: "" !important;
+  margin: 0;
+  padding: 0;
+}

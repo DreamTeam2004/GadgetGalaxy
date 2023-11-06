@@ -1,9 +1,11 @@
 // Footer.tsx
 import React from "react";
 
-import '@/assets/styles/style-components/Footer.scss';
 import Logo from "@/components/Logo";
 import Link from "next/link";
+import ArrowIcon from "@/assets/images/icon-footer-arrow.svg";
+
+import "@/assets/styles/style-components/Footer.scss";
 
 const Footer = () => {
   return (
@@ -28,7 +30,9 @@ const Footer = () => {
               </div>
             </div>
             <div className="footer__categories">
-              <div className="footer__title">КАТЕГОРИИ</div>
+              <div className="footer__title">
+                КАТЕГОРИИ <ArrowIcon className="footer__title--mobile" />
+              </div>
               <Link href={"/"}>
                 <div className="footer__link">TV & АУДИО</div>
               </Link>
@@ -55,7 +59,9 @@ const Footer = () => {
               </Link>
             </div>
             <div className="footer__links">
-              <div className="footer__title">ССЫЛКИ</div>
+              <div className="footer__title">
+                ССЫЛКИ <ArrowIcon className="footer__title--mobile" />
+              </div>
               <Link href={"/"}>
                 <div className="footer__link">СПИСОК ЖЕЛАНИЙ</div>
               </Link>
@@ -70,7 +76,9 @@ const Footer = () => {
               </Link>
             </div>
             <div className="footer__brands">
-              <div className="footer__title">БРЕНДЫ</div>
+              <div className="footer__title">
+                БРЕНДЫ <ArrowIcon className="footer__title--mobile" />
+              </div>
               <Link href={"/"}>
                 <div className="footer__link">APLLE</div>
               </Link>
