@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 
 import "../../assets/styles/globals.scss";
+import { Providers } from "@/lib/store/Provider";
 
 export const metadata: Metadata = {
   title: "GadgetGalaxy",
@@ -18,12 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="wrapper">
-          <Header />
-          {children}
-        </div>
-        <Footer />
-        <HeaderMobile />
+        <Providers>
+          <div className="wrapper">
+            <Header />
+            {children}
+          </div>
+          <Footer />
+          <HeaderMobile />
+        </Providers>
       </body>
     </html>
   );

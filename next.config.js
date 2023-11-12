@@ -4,6 +4,9 @@ const nextConfig = {
         appDir: true,
         typedRoutes: true,
     },
+    images: {
+        domains: ['firebasestorage.googleapis.com'], // Add your image domain(s) here
+    },
     webpack(config) {
         // Grab the existing rule that handles SVG imports
         const fileLoaderRule = config.module.rules.find((rule) =>

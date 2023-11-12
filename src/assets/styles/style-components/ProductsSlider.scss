@@ -74,6 +74,7 @@
     }
 
     &-image {
+      position: relative;
       height: 200px;
       margin: 15px auto;
       @include laptop {

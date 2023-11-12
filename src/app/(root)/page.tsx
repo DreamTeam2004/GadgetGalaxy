@@ -1,11 +1,7 @@
-// ПРИМЕР*************************************/
-import { categories } from "@/example-data.js";
-// ПРИМЕР*************************************/
-
+"use client"
 import Link from "next/link";
 import Image from "next/image";
 
-import ArrowIcon from "@/assets/images/icon-arrow.svg";
 import mackbook from "@/assets/images/banner/macbookPro.png";
 import mackbookMobile from "@/assets/images/banner/macbookProMobile.jpg";
 import AdvantageIcon1 from "@/assets/images/advantages/advantage1.svg";
@@ -17,37 +13,80 @@ import AdvantageIcon5 from "@/assets/images/advantages/advantage5.svg";
 import Banner from "@/components/Banner";
 import ProductsSlider from "@/components/ProductsSlider";
 import Brands from "@/components/Brands";
+import Categories from "@/components/Categories";
 
 import "@/assets/styles/style-pages/main-page.scss";
+import { useEffect, useState } from "react";
 
-export const metadata = {
-  title: "GadgetGalaxy - Главная",
-};
+interface Product {
+  id: string;
+  category: string;
+  subcategory: string;
+  name: string;
+  description: string;
+  price: number;
+  rating: number;
+  reviewsCount: number;
+  images: string[];
+  newPrice?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// export const metadata = {
+//   title: "GadgetGalaxy - Главная",
+// };
 
 export default function Home() {
+  const [popularProducts, setPopularProducts] = useState<Product[]>([]);
+  const [newProducts, setNewProducts] = useState<Product[]>([]);
+  const [discountProducts, setDiscountProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    // Функция для получения данных с популярных товаров
+    const fetchPopularProducts = async () => {
+      try {
+        const response = await fetch("/api/products/popular"); // Поменяйте на свой URL эндпоинта
+        const data = await response.json();
+        setPopularProducts(data.popularProducts);
+      } catch (error) {
+        console.error("Ошибка при запросе популярных товаров", error);
+      }
+    };
+
+    // Функция для получения данных с новых товаров
+    const fetchNewProducts = async () => {
+      try {
+        const response = await fetch("/api/products/new"); // Поменяйте на свой URL эндпоинта
+        const data = await response.json();
+        setNewProducts(data.newProducts);
+      } catch (error) {
+        console.error("Ошибка при запросе новых товаров", error);
+      }
+    };
+
+     // Функция для получения данных с скидками товаров
+     const fetchDiscountProducts = async () => {
+      try {
+        const response = await fetch("/api/products/discount"); // Поменяйте на свой URL эндпоинта
+        const data = await response.json();
+        setDiscountProducts(data.discountProducts);
+      } catch (error) {
+        console.error("Ошибка при запросе новых товаров", error);
+      }
+    };
+
+    // Вызываем функции для получения данных при монтировании компонента
+    fetchPopularProducts();
+    fetchNewProducts();
+    fetchDiscountProducts();
+  }, []); // Пустой массив зависимостей, чтобы запросы выполнялись только один раз при монтировании
   return (
     <main>
       <Banner />
       <section className="categories">
         <div className="container">
-          <div className="categories__inner">
-            <h2>Категории</h2>
-            <div className="categories__list">
-              {categories.map((category) => (
-                <div className="categories__list-item" key={category.id}>
-                  <h3>{category.name}</h3>
-                  <Image
-                    className="categories__list-item-image"
-                    src={category.image}
-                    alt={category.name}
-                  />
-                  <button className="button-1">
-                    <ArrowIcon width={16} height={16} />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
+          <Categories />
         </div>
       </section>
       <section className="brands">
@@ -59,7 +98,7 @@ export default function Home() {
         <div className="container">
           <div className="popular__inner">
             <h2>Популярное</h2>
-            <ProductsSlider />
+            <ProductsSlider products={popularProducts} />
           </div>
         </div>
       </section>
@@ -67,7 +106,7 @@ export default function Home() {
         <div className="container">
           <div className="popular__inner">
             <h2>Новинки</h2>
-            <ProductsSlider />
+            <ProductsSlider products={newProducts} />
           </div>
         </div>
       </section>
@@ -87,7 +126,7 @@ export default function Home() {
         <div className="container">
           <div className="popular__inner">
             <h2>Скидки</h2>
-            <ProductsSlider isDiscounts={true} />
+            <ProductsSlider products={discountProducts} isDiscounts={true} />
           </div>
         </div>
       </section>

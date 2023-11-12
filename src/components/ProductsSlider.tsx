@@ -1,9 +1,5 @@
 "use client";
 
-// ПРИМЕР*************************************/
-import { products, categories } from "@/example-data.js";
-// ПРИМЕР*************************************/
-
 import React from "react";
 import Image from "next/image";
 import Slider from "react-slick";
@@ -18,11 +14,28 @@ import HeartIcon from "@/assets/images/icon-heart.svg";
 
 import "@/assets/styles/style-components/ProductsSlider.scss";
 
+interface Product {
+  id: string;
+  category: string;
+  subcategory: string;
+  name: string;
+  description: string;
+  price: number;
+  rating: number;
+  reviewsCount: number;
+  images: string[];
+  newPrice?: number;
+  createdAt: string;
+  updatedAt: string; 
+}
+
 interface ProductsSliderProps {
+  products: Product[];
   isDiscounts?: Boolean;
 }
 
 const ProductsSlider: React.FC<ProductsSliderProps> = ({
+  products,
   isDiscounts = false,
 }) => {
   const settings = {
@@ -72,16 +85,10 @@ const ProductsSlider: React.FC<ProductsSliderProps> = ({
 
   return (
     <Slider {...settings} className="list">
-      {products.map((product) => {
-        // Находим категорию товара по его categoryId
-        const productCategory = categories.find(
-          (category) => category.id === product.categoryID
-        );
-
-        return (
+      { products.map((product) => (
           <div className="list__item" key={product.id}>
             <div className="list__item-text">
-              <p className="list__item-category">{productCategory?.name}</p>
+              <p className="list__item-category">{product.category}</p>
               <h4 className="list__item-name">{product.name}</h4>
               <Rating
                 rating={product.rating}
@@ -89,11 +96,16 @@ const ProductsSlider: React.FC<ProductsSliderProps> = ({
               ></Rating>
             </div>
 
-            <Image
-              className="list__item-image"
-              src={product.image}
-              alt={product.name}
-            />
+            <div className="list__item-image">
+              <Image
+                src={product.images[0]}
+                alt={product.name}
+                priority={true}
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+
             <div className="list__item-bottom">
               {isDiscounts ? (
                 <div className="list__item-price">
@@ -114,8 +126,7 @@ const ProductsSlider: React.FC<ProductsSliderProps> = ({
               </div>
             </div>
           </div>
-        );
-      })}
+        ))}
     </Slider>
   );
 };
