@@ -1,12 +1,12 @@
-// ПРИМЕР*************************************/
-import { categories } from "@/example-data.js";
-// ПРИМЕР*************************************/
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store/store";
 
 import Image from "next/image";
 
 import "@/assets/styles/style-components/Navigation.scss";
 
 const Navigation = () => {
+  const categories = useSelector((state: RootState) => state.Categories.data);
   return (
     <nav className="drop-down">
       <div className="container">
@@ -27,11 +27,14 @@ const Navigation = () => {
                       </div>
                     </li>
                   ))}
-                  <Image
-                    className="drop-down__subcategories-image"
-                    src={category.image}
-                    alt={category.name}
-                  />
+                  <div className="drop-down__subcategories-image">
+                    <Image
+                      src={category.image}
+                      alt={category.name}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
                 </ul>
               </li>
             ))}

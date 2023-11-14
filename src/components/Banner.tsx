@@ -39,8 +39,8 @@ const Banner = () => {
           <div className="banner__slide-inner">
             <div className="banner__text">
               <motion.h1
-                initial={{ x: -100, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
+                initial={{ y: -100, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 className="banner__title"
               >
@@ -58,8 +58,8 @@ const Banner = () => {
               </motion.button>
             </div>
             <motion.div
-              initial={{ x: 250, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
+              initial={{ y: -250, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.75 }}
             >
               <Image src={slide1} alt="slide1" className="banner__image" />
@@ -73,8 +73,8 @@ const Banner = () => {
           <div className="banner__slide-inner">
             <div className="banner__text">
               <motion.h1
-                initial={{ x: -100, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
+                initial={{ y: -100, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 className="banner__title"
               >
@@ -92,8 +92,8 @@ const Banner = () => {
               </motion.button>
             </div>
             <motion.div
-              initial={{ x: 250, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
+              initial={{ y: -250, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.75 }}
             >
               <Image src={slide2} alt="slide2" className="banner__image" />
@@ -107,8 +107,8 @@ const Banner = () => {
           <div className="banner__slide-inner">
             <div className="banner__text">
               <motion.h1
-                initial={{ x: -150, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
+                initial={{ y: -100, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 className="banner__title"
               >
@@ -119,8 +119,8 @@ const Banner = () => {
                 НОВЫХ <b className="banner__title-bold">ГАДЖЕТОВ</b>
               </motion.h1>
               <motion.button
-                initial={{ x: 75, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
+                initial={{ y: 75, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 className="banner__button"
               >
@@ -128,9 +128,9 @@ const Banner = () => {
               </motion.button>
             </div>
             <motion.div
-              initial={{ x: 250, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.75 }}
+              initial={{ y: -250, opacity: 0 }}
+              whileInView={{  y: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
               <Image src={slide3} alt="slide3" className="banner__image" />
             </motion.div>
