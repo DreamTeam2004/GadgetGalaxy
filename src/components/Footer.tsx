@@ -1,5 +1,5 @@
-// Footer.tsx
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 
 import Logo from "@/components/Logo";
 import Link from "next/link";
@@ -8,6 +8,55 @@ import ArrowIcon from "@/assets/images/icon-footer-arrow.svg";
 import "@/assets/styles/style-components/Footer.scss";
 
 const Footer = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [categoriesVisible, setCategoriesVisible] = useState(false);
+  const [linksVisible, setLinksVisible] = useState(false);
+  const [brandsVisible, setBrandsVisible] = useState(false);
+
+  const [arrowDirectionCategories, setArrowDirectionCategories] =
+    useState("down");
+  const [arrowDirectionLinks, setArrowDirectionLinks] = useState("down");
+  const [arrowDirectionBrands, setArrowDirectionBrands] = useState("down");
+
+  const toggleCategories = () => {
+    setCategoriesVisible(!categoriesVisible);
+    setArrowDirectionCategories(categoriesVisible ? "down" : "up");
+  };
+
+  const toggleLinks = () => {
+    setLinksVisible(!linksVisible);
+    setArrowDirectionLinks(linksVisible ? "down" : "up");
+  };
+
+  const toggleBrands = () => {
+    setBrandsVisible(!brandsVisible);
+    setArrowDirectionBrands(brandsVisible ? "down" : "up");
+  };
+
+  //проверка на мобилу
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobileView = window.matchMedia("(max-width: 767px)").matches;
+      setIsMobile(isMobileView);
+
+      if (isMobileView) {
+        setCategoriesVisible(false);
+        setLinksVisible(false);
+        setBrandsVisible(false);
+      } else {
+        setCategoriesVisible(true);
+        setLinksVisible(true);
+        setBrandsVisible(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <footer className="footer">
       <div className="footer__top">
@@ -31,69 +80,93 @@ const Footer = () => {
             </div>
             <div className="footer__categories">
               <div className="footer__title">
-                КАТЕГОРИИ <ArrowIcon className="footer__title--mobile" />
+                КАТЕГОРИИ
+                <ArrowIcon
+                  onClick={toggleCategories}
+                  className={`footer__title--mobile ${arrowDirectionCategories}`}
+                />
               </div>
-              <Link href={"/"}>
-                <div className="footer__link">TV & АУДИО</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">СМАРТФОНЫ & ПЛАНШЕТЫ</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">НОУТБУКИ & ПК</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">ПЕРЕФЕРИЯ & АКСЕССУАРЫ</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">ФОТО & ВИДЕО</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">КОМПЛЕКТУЮЩИЕ ДЛЯ ПК</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">КОНСОЛИ & ВИДЕОИГРЫ</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">СЕТЕВОЕ ОБОРУДОВАНИЕ</div>
-              </Link>
+              {categoriesVisible && (
+                <>
+                  <Link href={"/"}>
+                    <div className="footer__link">TV & АУДИО</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">СМАРТФОНЫ & ПЛАНШЕТЫ</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">НОУТБУКИ & ПК</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">ПЕРЕФЕРИЯ & АКСЕССУАРЫ</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">ФОТО & ВИДЕО</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">КОМПЛЕКТУЮЩИЕ ДЛЯ ПК</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">КОНСОЛИ & ВИДЕОИГРЫ</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">СЕТЕВОЕ ОБОРУДОВАНИЕ</div>
+                  </Link>
+                </>
+              )}
             </div>
             <div className="footer__links">
               <div className="footer__title">
-                ССЫЛКИ <ArrowIcon className="footer__title--mobile" />
+                ССЫЛКИ
+                <ArrowIcon
+                  onClick={toggleLinks}
+                  className={`footer__title--mobile ${arrowDirectionLinks}`}
+                />
               </div>
-              <Link href={"/"}>
-                <div className="footer__link">СПИСОК ЖЕЛАНИЙ</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">КОРЗИНА</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">ЛИЧНЫЙ КАБИНЕТ</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">КАТАЛОГ</div>
-              </Link>
+              {linksVisible && (
+                <>
+                  <Link href={"/"}>
+                    <div className="footer__link">СПИСОК ЖЕЛАНИЙ</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">КОРЗИНА</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">ЛИЧНЫЙ КАБИНЕТ</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">КАТАЛОГ</div>
+                  </Link>
+                </>
+              )}
             </div>
             <div className="footer__brands">
               <div className="footer__title">
-                БРЕНДЫ <ArrowIcon className="footer__title--mobile" />
+                БРЕНДЫ
+                <ArrowIcon
+                  onClick={toggleBrands}
+                  className={`footer__title--mobile ${arrowDirectionBrands}`}
+                />
               </div>
-              <Link href={"/"}>
-                <div className="footer__link">APLLE</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">HUAWEI</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">SAMSUNG</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">DEXP</div>
-              </Link>
-              <Link href={"/"}>
-                <div className="footer__link">XIAOMI</div>
-              </Link>
+              {brandsVisible && (
+                <>
+                  <Link href={"/"}>
+                    <div className="footer__link">APLLE</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">HUAWEI</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">SAMSUNG</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">DEXP</div>
+                  </Link>
+                  <Link href={"/"}>
+                    <div className="footer__link">XIAOMI</div>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

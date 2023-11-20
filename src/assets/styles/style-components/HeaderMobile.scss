@@ -23,7 +23,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      
+
       padding: 10px 0;
       @include tablet {
         gap: 55px;
@@ -39,6 +39,15 @@
             fill: $primaryColor;
             transition: fill 0.25s ease-in-out;
           }
+        }
+      }
+      &-icon--user {
+        height: 45px;
+        width: 45px;
+        position: relative;
+
+        &-photo {
+          border-radius: 50%;
         }
       }
       @include laptop {

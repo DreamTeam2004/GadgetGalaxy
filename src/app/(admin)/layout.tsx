@@ -19,8 +19,8 @@ export default function RootLayout({
       <div className="wrapper">
         <AdminHeader />
         {children}
+        <AdminFooter />
       </div>
-      <AdminFooter />
     </html>
   );
 }

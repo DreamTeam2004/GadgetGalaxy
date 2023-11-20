@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import Image from "next/image";
-import Slider from "react-slick";
+import Slider, { CustomArrowProps } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Rating from "@/components/Rating";
@@ -26,7 +26,7 @@ interface Product {
   images: string[];
   newPrice?: number;
   createdAt: string;
-  updatedAt: string; 
+  updatedAt: string;
 }
 
 interface ProductsSliderProps {
@@ -85,48 +85,48 @@ const ProductsSlider: React.FC<ProductsSliderProps> = ({
 
   return (
     <Slider {...settings} className="list">
-      { products.map((product) => (
-          <div className="list__item" key={product.id}>
-            <div className="list__item-text">
-              <p className="list__item-category">{product.category}</p>
-              <h4 className="list__item-name">{product.name}</h4>
-              <Rating
-                rating={product.rating}
-                reviewsCount={product.reviewsCount}
-              ></Rating>
-            </div>
+      {products.map((product) => (
+        <div className="list__item" key={product.id}>
+          <div className="list__item-text">
+            <p className="list__item-category">{product.category}</p>
+            <h4 className="list__item-name">{product.name}</h4>
+            <Rating
+              rating={product.rating}
+              reviewsCount={product.reviewsCount}
+            ></Rating>
+          </div>
 
-            <div className="list__item-image">
-              <Image
-                src={product.images[0]}
-                alt={product.name}
-                priority={true}
-                layout="fill"
-                objectFit="cover"
-              />
-            </div>
+          <div className="list__item-image">
+            <Image
+              src={product.images[0]}
+              alt={product.name}
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="(min-width: 1280px) 200px, (min-width: 1024px) and (max-width: 1279px) 185px, (min-width: 768px) and (max-width: 1023px) 185px, (max-width: 767px) 145px"
+            />
+          </div>
 
-            <div className="list__item-bottom">
-              {isDiscounts ? (
-                <div className="list__item-price">
-                  <p className="list__item-price-new">${product.newPrice}</p>
-                  <p className="list__item-price-old">${product.price}</p>
-                </div>
-              ) : (
-                <div className="list__item-price">${product.price}</div>
-              )}
-
-              <div className="list__item-buttons">
-                <button className="button-1 favorites">
-                  <HeartIcon className="favoritesIcon" height={30} />
-                </button>
-                <button className="button-1 basket">
-                  <ShoppingIcon className="basketIcon" height={30} />
-                </button>
+          <div className="list__item-bottom">
+            {isDiscounts ? (
+              <div className="list__item-price">
+                <p className="list__item-price-new">${product.newPrice}</p>
+                <p className="list__item-price-old">${product.price}</p>
               </div>
+            ) : (
+              <div className="list__item-price">${product.price}</div>
+            )}
+
+            <div className="list__item-buttons">
+              <button className="button-1 favorites">
+                <HeartIcon className="favoritesIcon" height={30} />
+              </button>
+              <button className="button-1 basket">
+                <ShoppingIcon className="basketIcon" height={30} />
+              </button>
             </div>
           </div>
-        ))}
+        </div>
+      ))}
     </Slider>
   );
 };
