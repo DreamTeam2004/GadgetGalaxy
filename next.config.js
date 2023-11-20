@@ -5,7 +5,7 @@ const nextConfig = {
         typedRoutes: true,
     },
     images: {
-        domains: ['firebasestorage.googleapis.com'], // Add your image domain(s) here
+        domains: ['firebasestorage.googleapis.com', 'lh3.googleusercontent.com'], // Add your image domain(s) here
     },
     webpack(config) {
         // Grab the existing rule that handles SVG imports

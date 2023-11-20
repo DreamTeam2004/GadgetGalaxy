@@ -31,8 +31,9 @@ const Navigation = () => {
                     <Image
                       src={category.image}
                       alt={category.name}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes="(min-width: 1280px) 350px, (min-width: 1024px) and (max-width: 1279px) 225px"
                     />
                   </div>
                 </ul>

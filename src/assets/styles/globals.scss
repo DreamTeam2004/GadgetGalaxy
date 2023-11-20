@@ -5,6 +5,7 @@
 
 * {
   font-family: rubik;
+  outline: none;
 }
 
 body {
@@ -106,3 +107,22 @@ h4 {
     font-size: 12px;
   }
 }
+
+//toast
+/* Стили для десктопных устройств (по умолчанию) */
+.Toastify__toast-container {
+  @include tablet {
+    top: 5em; /* Позиционирование сверху на мобильных устройствах */
+    right: 1em;
+    bottom: initial; /* Сброс позиции снизу */
+    width: 450px;
+  }
+  @include mobile {
+    top: 1em; /* Позиционирование сверху на мобильных устройствах */
+    right: 1em;
+    bottom: initial; /* Сброс позиции снизу */
+    margin: 0 15px;
+    width: 290px;
+  }
+}
+

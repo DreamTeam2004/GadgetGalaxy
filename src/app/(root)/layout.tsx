@@ -4,6 +4,9 @@ import Footer from "@/components/Footer";
 
 import type { Metadata } from "next";
 
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
 import "../../assets/styles/globals.scss";
 import { Providers } from "@/lib/store/Provider";
 
@@ -23,9 +26,13 @@ export default function RootLayout({
           <div className="wrapper">
             <Header />
             {children}
+            <Footer />
+            <HeaderMobile />
+            <ToastContainer
+              position="bottom-right"
+              progressStyle={{ background: "#9E00FF" }} // Стили для прогресс-бара
+            />
           </div>
-          <Footer />
-          <HeaderMobile />
         </Providers>
       </body>
     </html>
