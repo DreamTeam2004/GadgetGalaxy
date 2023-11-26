@@ -2,34 +2,42 @@
 export const categories = [
     {
         name: "TV & Аудио",
+        slug: "tv-i-audio",
         image: "TV-Audio.png",
     },
     {
         name: "Смартфоны & Планшеты",
+        slug: "smartphones-i-tablets",
         image: "Tel.png",
     },
     {
         name: "Ноутбуки & ПК",
+        slug: "laptops-i-pc",
         image: "laptops-PC.png",
     },
     {
-        name: "Переферия & Аксессуары",
+        name: "Периферия & Аксессуары",
+        slug: "peripherals-i-accessories",
         image: "accessories.png",
     },
     {
         name: "Фото & Видео",
+        slug: "photo-i-video",
         image: "photo-video.png",
     },
     {
         name: "Комплектующие для ПК",
+        slug: "pc-components",
         image: "pc-accessories.png",
     },
     {
         name: "Консоли & Видеоигры",
+        slug: "consoles-i-games",
         image: "consoles.png",
     },
     {
         name: "Сетевое оборудование",
+        slug: "network-equipment",
         image: "network-equipment.png",
     },
 ];
@@ -37,66 +45,82 @@ export const categories = [
 export const subcategories = [
     {
         name: "Телевизоры",
+        slug: "tv",
         category: "TV & Аудио"
     },
     {
         name: "Аудио",
+        slug: "audio",
         category: "TV & Аудио"
     },
     {
         name: "Смартфоны",
+        slug: "smartphones",
         category: "Смартфоны & Планшеты"
     },
     {
         name: "Планшеты",
+        slug: "tablets",
         category: "Смартфоны & Планшеты"
     },
     {
         name: "Ноутбуки",
+        slug: "laptops",
         category: "Ноутбуки & ПК"
     },
     {
         name: "ПК",
+        slug: "pc",
         category: "Ноутбуки & ПК"
     },
     {
-        name: "Переферия",
-        category: "Переферия & Аксессуары"
+        name: "Периферия",
+        slug: "peripherals",
+        category: "Периферия & Аксессуары"
     },
     {
         name: "Аксессуары",
-        category: "Переферия & Аксессуары"
+        slug: "accessories",
+        category: "Периферия & Аксессуары"
     },
     {
         name: "Фото",
+        slug: "photo",
         category: "Фото & Видео"
     },
     {
         name: "Видео",
+        slug: "video",
         category: "Фото & Видео"
     },
     {
         name: "Видеокарты",
+        slug: "graphics-cards",
         category: "Комплектующие для ПК"
     },
     {
         name: "Процессоры",
+        slug: "processors",
         category: "Комплектующие для ПК"
     },
     {
         name: "Консоли",
+        slug: "consoles",
         category: "Консоли & Видеоигры"
     },
     {
         name: "Видеоигры",
+        slug: "games",
         category: "Консоли & Видеоигры"
     },
     {
         name: "Роутеры",
+        slug: "routers",
         category: "Сетевое оборудование"
     },
     {
         name: "Кабели",
+        slug: "cables",
         category: "Сетевое оборудование"
     },
 ];

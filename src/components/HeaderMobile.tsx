@@ -19,13 +19,15 @@ import { clearUser } from "@/lib/store/slices/UserSlice";
 import { toast } from "react-toastify";
 import AuthModal from "./AuthModal";
 import { signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase/config.mjs";
+import { auth } from "@/lib/firebase/firebase.mjs";
+import useAuth from "@/hooks/useAuth";
 
 const Header = () => {
   const [isNavigationShow, setNavigationIsShow] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.User);
+  useAuth();
 
   const openAuthModal = () => {
     setIsAuthModalOpen(true);
@@ -108,7 +110,7 @@ const Header = () => {
           </ul>
         </div>
       </header>
-      {isNavigationShow && <Navigation />}
+      {isNavigationShow && <Navigation onClose={() => setNavigationIsShow(false)} />}
       <AuthModal isOpen={isAuthModalOpen} onRequestClose={closeAuthModal} />
     </div>
   );

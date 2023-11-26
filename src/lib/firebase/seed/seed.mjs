@@ -1,6 +1,6 @@
-import { collection, addDoc, query, where, getDocs, serverTimestamp } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
-import { db, storage } from "../config.mjs";
+import { collection, addDoc, query, where, getDocs, serverTimestamp, updateDoc, doc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../firebase.mjs";
 import fs from "fs";
 
 import { categories, subcategories, products } from "./seed-data.mjs"
@@ -10,13 +10,14 @@ async function seedFirestoreCategories() {
         try {
             // Создайте категорию в Firestore без поля 'image'
             const { image, ...categoryData } = category;
+
             // Добавление временных меток
             const timestamp = serverTimestamp();
             categoryData.createdAt = timestamp;
             categoryData.updatedAt = timestamp;
+
             // Добавление данных категории в Firestore
             const categoryRef = await addDoc(collection(db, "categories"), categoryData);
-            console.log("Category document written with ID: ", categoryRef.id);
 
             // Создайте ссылку на место в Firebase Storage, где сохранить изображение
             const imageFileName = `${categoryRef.id}.png`; // Имя изображения, основанное на doc.id
@@ -31,6 +32,13 @@ async function seedFirestoreCategories() {
             // Загрузите изображение в Firebase Storage
             await uploadBytes(imageRef, imageData);
             console.log("Image successfully uploaded to Firebase Storage: ", imageFileName);
+
+            // Получите URL загруженного изображения
+            const img = await getDownloadURL(imageRef);
+
+            // Обновите документ в Firestore, добавив поле photo
+            await updateDoc(doc(db, "categories", categoryRef.id), { img });
+            console.log("Category document written with ID: ", categoryRef.id);
 
         } catch (error) {
             console.error("Error adding document: ", error);
@@ -54,6 +62,7 @@ async function seedFirestoreSubCategories() {
             // Добавьте подкатегории в Firestore
             const subCategoryRef = await addDoc(collection(db, "subcategories"), {
                 name: subcategory.name,
+                slug: subcategory.slug,
                 categoryID: categoryDoc.id, // Ссылка на родительскую категорию
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp()
@@ -106,12 +115,10 @@ async function seedFirestoreProducts() {
 
             // Добавление данных продукта в Firestore
             const productRef = await addDoc(collection(db, "products"), productData);
-            console.log("Product document written with ID: ", productRef.id);
-
 
             // Создайте папку для изображений продукта
             const productImageFolder = `productsImg/${productRef.id}`;
-
+            const images = [];
             // Проход по всем изображениям продукта и их загрузка
             for (let i = 0; i < product.images.length; i++) {
                 const imageFileName = `img${i + 1}.png`; // Уникальное имя для каждого изображения
@@ -122,7 +129,16 @@ async function seedFirestoreProducts() {
                 // Загрузите изображение в Firebase Storage
                 await uploadBytes(imageRef, imageData);
                 console.log("Image successfully uploaded to Firebase Storage: ", imageFileName);
+
+                // Добавьте ссылку на изображение в массив images продукта
+                const downloadURL = await getDownloadURL(imageRef);
+                images.push( downloadURL );
             }
+
+            // Обновите документ в Firestore, добавив поле photo
+            await updateDoc(doc(db, "products", productRef.id), { images });
+            console.log("Product document written with ID: ", productRef.id);
+             
         } catch (error) {
             console.error("Error adding document: ", error);
         }

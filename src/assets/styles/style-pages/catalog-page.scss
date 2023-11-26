@@ -1,0 +1,192 @@
+@import "../vars";
+@import "../mixins";
+@import "../ui//buttons.scss";
+
+.catalog {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  &__aside {
+    @include tablet {
+      display: none;
+    }
+    @include mobile {
+      display: none;
+    }
+    &-banner {
+      position: relative;
+      width: 280px;
+      height: 500px;
+      @include laptop {
+        width: 235px;
+        height: 425px;
+      }
+      @include tablet {
+        display: none;
+      }
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+  &__inner {
+  }
+  &__header {
+    padding: 20px 20px 10px 20px;
+    border-radius: 6px;
+    border: 1px solid #eef0f4;
+    @include mobile {
+        padding: 10px 10px 10px 10px;
+      }
+    &-content {
+      display: flex;
+      justify-content: space-between;
+    }
+    &-divider {
+      height: 1px; /* Высота вашей линии */
+      width: auto; /* Ширина вашей линии */
+      background-color: #eef0f4; /* Цвет вашей линии */
+      margin-top: 20px;
+      margin-bottom: 12px;
+    }
+    &-title {
+      color: #1d232c;
+      font-size: 30px;
+      font-weight: 500;
+    }
+    &-pagination {
+      color: #586a84;
+      font-size: 14px;
+      font-weight: 400;
+      &--bold {
+        color: #1d232c;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+    &-view {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      &-item {
+        display: flex;
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 6px;
+        padding: 5px;
+        cursor: pointer;
+        .catalogViewIcon * {
+          fill: #586a84;
+        }
+
+        &--active {
+          display: flex;
+          width: 36px;
+          height: 36px;
+          justify-content: center;
+          align-items: center;
+          border-radius: 6px;
+          padding: 5px;
+          cursor: pointer;
+          background: #eef0f4;
+          .catalogViewIcon * {
+            fill: #3b4758;
+          }
+        }
+      }
+    }
+    &-sort {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      &-item {
+        position: relative;
+        display: flex;
+        padding: 4px 12px 4px 20px;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 18px;
+        border: 1px solid #eef0f4;
+
+        color: #586a84;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer;
+        @include mobile {
+            font-size: 12px;  
+          }
+        &--value {
+          color: #1d232c;
+          font-size: 14px;
+          font-weight: 500;
+          @include mobile {
+            font-size: 12px;
+          }
+        }
+        & select {
+          appearance: none;
+          padding-right: 20px; /* Добавьте отступ для контейнера select */
+          background: url("../../images/icon-select-sort.svg") no-repeat right
+            center;
+          background-size: 12px; /* Укажите размер вашей стрелки */
+          margin-left: 8px; /* Добавьте отступ справа для текста */
+          @include mobile {
+            max-width: 95px;
+          }
+        }
+        &--mobile {
+          display: none;
+
+          padding: 4px 12px 4px 12px;
+          align-self: flex-end;
+          .filtersIcon {
+            margin-right: 10px;
+          }
+          @include tablet {
+            display: flex;
+          }
+          @include mobile {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    gap: 20px;
+    justify-content: center;
+    @include laptop {
+      gap: 15px;
+    }
+    @include tablet {
+      gap: 20px;
+    }
+    @include mobile {
+      gap: 20px;
+    }
+    .product-cardV1 {
+      @include desktop {
+        width: calc(
+          25% - 15px
+        ); /* 25% ширины контейнера минус отступы между элементами */
+      }
+      @include laptop {
+        width: calc(
+          33% - 10px
+        ); /* 25% ширины контейнера минус отступы между элементами */
+      }
+      @include tablet {
+        width: calc(33% - 20px);
+      }
+      @include mobile {
+        width: calc(50% - 20px);
+      }
+    }
+  }
+}

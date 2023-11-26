@@ -1,30 +1,29 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
-import { db, storage } from "../../../lib/firebase/config.mjs";
-
 import { NextResponse } from "next/server";
+import { admin } from "../(firebase)/firebase-admin";
 
 export async function GET() {
   try {
     const categories = [];
-    const querySnapshot = await getDocs(collection(db, "categories"));
+    const querySnapshot = await admin
+      .firestore()
+      .collection("categories")
+      .get();
 
     for (const doc of querySnapshot.docs) {
       const data = doc.data();
-      const imageRef = ref(storage, `categoriesImg/${doc.id}.png`);
-      const imageUrl = await getDownloadURL(imageRef);
 
       // Получаем подкатегории для текущей категории
-      const subcategoriesQuery = query(
-        collection(db, "subcategories"),
-        where("categoryID", "==", doc.id)
-      );
-      const subcategoriesSnapshot = await getDocs(subcategoriesQuery);
-      const subcategories = subcategoriesSnapshot.docs.map((subDoc) =>
-        subDoc.data()
-      );
+      const subcategoriesQuery = admin
+        .firestore()
+        .collection("subcategories")
+        .where("categoryID", "==", doc.id);
+      const subcategoriesSnapshot = await subcategoriesQuery.get();
+      const subcategories = subcategoriesSnapshot.docs.map((subDoc) => {
+        const subData = subDoc.data();
+        return { id: subDoc.id, ...subData };
+      });
 
-      categories.push({ id: doc.id, ...data, image: imageUrl, subcategories });
+      categories.push({ id: doc.id, ...data, subcategories });
     }
 
     return NextResponse.json(

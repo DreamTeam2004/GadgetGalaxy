@@ -1,45 +1,26 @@
 "use client";
 
-import React, { HTMLAttributes } from "react";
-import Image from "next/image";
-import Slider, { CustomArrowProps } from "react-slick";
+import React from "react";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Rating from "@/components/Rating";
 
 import ArrowNextIcon from "@/assets/images/icon-arrow-next.svg";
 import ArrowPrevIcon from "@/assets/images/icon-arrow-prev.svg";
-import ShoppingIcon from "@/assets/images/icon-shopping.svg";
-import HeartIcon from "@/assets/images/icon-heart.svg";
 
 import "@/assets/styles/style-components/ProductsSlider.scss";
-
-interface Product {
-  id: string;
-  category: string;
-  subcategory: string;
-  name: string;
-  description: string;
-  price: number;
-  rating: number;
-  reviewsCount: number;
-  images: string[];
-  newPrice?: number;
-  createdAt: string;
-  updatedAt: string;
-}
+import ProductCard from "./ProductCardGrid";
+import { IProduct } from "@/@types/IProduct";
 
 interface ProductsSliderProps {
-  products: Product[];
-  isDiscounts?: Boolean;
+  products: IProduct[];
 }
 
 const ProductsSlider: React.FC<ProductsSliderProps> = ({
   products,
-  isDiscounts = false,
 }) => {
   const settings = {
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 3000,
     dots: false, // Отображение точек для навигации
     infinite: true, // Бесконечная карусель
@@ -86,46 +67,7 @@ const ProductsSlider: React.FC<ProductsSliderProps> = ({
   return (
     <Slider {...settings} className="list">
       {products.map((product) => (
-        <div className="list__item" key={product.id}>
-          <div className="list__item-text">
-            <p className="list__item-category">{product.category}</p>
-            <h4 className="list__item-name">{product.name}</h4>
-            <Rating
-              rating={product.rating}
-              reviewsCount={product.reviewsCount}
-            ></Rating>
-          </div>
-
-          <div className="list__item-image">
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="(min-width: 1280px) 200px, (min-width: 1024px) and (max-width: 1279px) 185px, (min-width: 768px) and (max-width: 1023px) 185px, (max-width: 767px) 145px"
-            />
-          </div>
-
-          <div className="list__item-bottom">
-            {isDiscounts ? (
-              <div className="list__item-price">
-                <p className="list__item-price-new">${product.newPrice}</p>
-                <p className="list__item-price-old">${product.price}</p>
-              </div>
-            ) : (
-              <div className="list__item-price">${product.price}</div>
-            )}
-
-            <div className="list__item-buttons">
-              <button className="button-1 favorites">
-                <HeartIcon className="favoritesIcon" height={30} />
-              </button>
-              <button className="button-1 basket">
-                <ShoppingIcon className="basketIcon" height={30} />
-              </button>
-            </div>
-          </div>
-        </div>
+        <ProductCard key={product.id} product={product} />
       ))}
     </Slider>
   );

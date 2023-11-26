@@ -1,4 +1,10 @@
-import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { auth } from "@/lib/firebase/firebase.mjs";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 interface UserState {
   uid: string | null;
@@ -27,52 +33,87 @@ export const loginUserWithPassword = createAsyncThunk(
     { dispatch, rejectWithValue }
   ) => {
     try {
-      const response = await fetch("/api/users/login/password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      // Авторизация пользователя в Firebase
+      const data = await signInWithEmailAndPassword(auth, email, password);
+      const { user } = data;
 
-      const data = await response.json();
+      if (user?.uid) {
+        const userPayload = {
+          uid: user.uid,
+          email: user.email,
+          name: user.displayName,
+          photo: user.photoURL,
+          accessToken: await user.getIdToken(),
+          provider: user.providerData[0].providerId,
+        };
 
-      if (response.ok) {
-        dispatch(setUser(data.user)); // Возвращаем данные пользователя после успешной авторизации
+        dispatch(setUser(userPayload));
         return;
       } else {
-        return rejectWithValue(data.error_message); // Бросаем ошибку в случае неудачной авторизации
+        return rejectWithValue("Произошла ошибка при авторизации.");
       }
-    } catch (error) {
-      return rejectWithValue("Неизвестная ошибка");
+    } catch (error: any) {
+      // console.error("Ошибка авторизации:", error);
+      const errorMessage = error.message || "Неизвестная ошибка.";
+      switch (error.code) {
+        case "auth/invalid-email":
+          return rejectWithValue("Неверный формат электронной почты.");
+        case "auth/invalid-login-credentials":
+          return rejectWithValue("Неверный email или пароль.");
+        default:
+          return rejectWithValue(errorMessage);
+      }
     }
   }
 );
 export const loginUserWithGoogle = createAsyncThunk(
   "user/loginUserWithGoogle",
-  async (
-    { token }: { token: string },
-    { dispatch, rejectWithValue }
-  ) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
-      const response = await fetch("/api/users/login/google", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
-      });
+      const googleProvider = new GoogleAuthProvider();
+      const data = await signInWithPopup(auth, googleProvider);
+      const { user } = data;
 
-      const data = await response.json();
+      if (user?.uid) {
+        const userPayload = {
+          uid: user.uid,
+          email: user.email,
+          name: user.displayName,
+          photo: user.photoURL,
+          accessToken: await user.getIdToken(),
+          provider: user.providerData[0].providerId,
+        };
+        //Добавление пользователя Google в бд, если он входит первый раз
+        const response = await fetch("/api/users/register/google", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userPayload }),
+        });
+        const data = await response.json();
 
-      if (response.ok) {
-        dispatch(setUser(data.user)); 
-        return data.user;
+        //Добавление пользователя в store
+        if (response.ok) {
+          dispatch(setUser(userPayload)); // Добавляем данные пользователя после успешной авторизации
+          return;
+        } else {
+          return rejectWithValue(data.error_message); // Бросаем ошибку в случае неудачной авторизации
+        }
       } else {
-        return rejectWithValue(data.error_message); // Бросаем ошибку в случае неудачной авторизации
+        return rejectWithValue("Не удалось получить данные Google"); // Бросаем ошибку в случае неудачной авторизации
       }
-    } catch (error) {
-      return rejectWithValue("Неизвестная ошибка");
+    } catch (error: any) {
+      // console.error("Ошибка авторизации c помощью Google:", error);
+      const errorMessage = error.message || "Неизвестная ошибка.";
+      switch (error.code) {
+        case "auth/popup-closed-by-user":
+          return rejectWithValue("Окно Google было закрыто.");
+        case "auth/cancelled-popup-request":
+          return rejectWithValue("Авторизация c помощью Google была отменена.");
+        default:
+          return rejectWithValue(errorMessage);
+      }
     }
   }
 );

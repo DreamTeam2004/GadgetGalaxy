@@ -1,5 +1,5 @@
 
-export default function Auth() {
+export default function Admin() {
     return (
       <main className="main">
         <div className='container'>
