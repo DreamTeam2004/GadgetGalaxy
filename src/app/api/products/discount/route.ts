@@ -1,26 +1,15 @@
-import {
-  getDocs,
-  collection,
-  query,
-  where,
-  limit,
-  getDoc,
-  doc,
-} from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
-import { db, storage } from "../../../../lib/firebase/config.mjs";
+import { admin } from "@/app/api/(firebase)/firebase-admin";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     // Запрос для получения популярных товаров (например, сортировка по количеству оценок)
-    const querySnapshot = await getDocs(
-      query(
-        collection(db, "products"),
-        where("newPrice", "!=", null), // Выбираем только товары со скидкой
-        limit(15)
-      )
-    );
+    const querySnapshot = await admin
+      .firestore()
+      .collection("products")
+      .where("newPrice", "!=", null) // Выбираем только товары со скидкой
+      .limit(15)
+      .get();
 
     const discountProducts = [];
 
@@ -28,32 +17,20 @@ export async function GET() {
       const data = docSnap.data();
 
       // Получаем данные категории
-      const categoryDoc = await getDoc(doc(db, "categories", data.categoryID));
-      const categoryData = categoryDoc?.data()?.name;
+      const categoryDoc = await admin
+        .firestore()
+        .collection("categories")
+        .doc(data.categoryID)
+        .get();
+      const category = categoryDoc?.data()?.name;
 
       // Получаем данные подкатегории
-      const subcategoryDoc = await getDoc(
-        doc(db, "subcategories", data.subcategoryID)
-      );
-      const subcategoryData = subcategoryDoc?.data()?.name;
-
-      // Получаем изображения продукта из хранилища
-      const imageUrls: string[] = [];
-      // Предположим, что у каждого продукта есть, например, три изображения
-      for (let i = 1; i <= 5; i++) {
-        const imagePath = `productsImg/${docSnap.id}/img${i}.png`; // Замените на свою структуру именования
-        try {
-          const imageUrl = await getDownloadURL(ref(storage, imagePath));
-          imageUrls.push(imageUrl);
-        } catch (error: any) {
-          // Если изображение не существует, проигнорируем ошибку
-          if (error.code === "storage/object-not-found") {
-            break;
-          }
-          // В противном случае, обрабатываем другие ошибки
-          console.error("Ошибка при загрузке изображения:", error);
-        }
-      }
+      const subcategoryDoc = await admin
+        .firestore()
+        .collection("subcategories")
+        .doc(data.subcategoryID)
+        .get();
+      const subcategory = subcategoryDoc?.data()?.name;
 
       // Преобразование Timestamp в объект Date
       const createdAtDate = data.createdAt.toDate().toLocaleString();
@@ -61,21 +38,20 @@ export async function GET() {
 
       const productData = {
         id: docSnap.id,
-        category: categoryData,
-        subcategory: subcategoryData,
+        category: category,
+        subcategory: subcategory,
         name: data.name,
         description: data.description,
         price: data.price,
         newPrice: data.newPrice,
         rating: data.rating,
         reviewsCount: data.reviewsCount,
-        images: imageUrls,
+        images: data.images,
         createdAt: createdAtDate,
         updatedAt: updatedAtDate,
       };
 
-      
-     discountProducts.push(productData);
+      discountProducts.push(productData);
     }
 
     return NextResponse.json(

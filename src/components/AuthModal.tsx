@@ -5,9 +5,6 @@ import { toast } from "react-toastify";
 
 import PasswordInput from "@/components/PasswordInput";
 
-import { auth } from "@/lib/firebase/config.mjs";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
 import "@/assets/styles/style-components/Modal.scss";
 import google from "@/assets/images/Google.png";
 import { useDispatch } from "react-redux";
@@ -71,15 +68,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onRequestClose }) => {
   const handleGoogleLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      const googleProvider = await new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, googleProvider);
-
-      // получение токена от гугла
-      const credential: any = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.idToken;
-      // console.log(token)
-
-      const resultAction = await dispatch(loginUserWithGoogle({ token }));
+      const resultAction = await dispatch(loginUserWithGoogle());
       unwrapResult(resultAction);
 
       toast.success("Авторизация c помощью Google прошла успешно");
@@ -104,7 +93,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onRequestClose }) => {
     }
 
     try {
-      const response = await fetch("/api/users/register", {
+      const response = await fetch("/api/users/register/password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

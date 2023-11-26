@@ -119,7 +119,7 @@ const Banner = () => {
                 НОВЫХ <b className="banner__title-bold">ГАДЖЕТОВ</b>
               </motion.h1>
               <motion.button
-                initial={{ y: 75, opacity: 0 }}
+                initial={{ y: 25, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 className="banner__button"

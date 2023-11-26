@@ -2,8 +2,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import mackbook from "@/assets/images/banner/macbookPro.png";
-import mackbookMobile from "@/assets/images/banner/macbookProMobile.jpg";
+import macBook from "@/assets/images/banner/macBookPro.png";
+import macBookMobile from "@/assets/images/banner/macBookProMobile.jpg";
 import AdvantageIcon1 from "@/assets/images/advantages/advantage1.svg";
 import AdvantageIcon2 from "@/assets/images/advantages/advantage2.svg";
 import AdvantageIcon3 from "@/assets/images/advantages/advantage3.svg";
@@ -16,37 +16,24 @@ import Brands from "@/components/Brands";
 import Categories from "@/components/Categories";
 
 import "@/assets/styles/style-pages/main-page.scss";
-import { useEffect, useState } from "react";
 
-interface Product {
-  id: string;
-  category: string;
-  subcategory: string;
-  name: string;
-  description: string;
-  price: number;
-  rating: number;
-  reviewsCount: number;
-  images: string[];
-  newPrice?: number;
-  createdAt: string;
-  updatedAt: string;
-}
+import { useEffect, useState } from "react";
+import { IProduct } from "@/@types/IProduct";
 
 // export const metadata = {
 //   title: "GadgetGalaxy - Главная",
 // };
 
 export default function Home() {
-  const [popularProducts, setPopularProducts] = useState<Product[]>([]);
-  const [newProducts, setNewProducts] = useState<Product[]>([]);
-  const [discountProducts, setDiscountProducts] = useState<Product[]>([]);
+  const [popularProducts, setPopularProducts] = useState<IProduct[]>([]);
+  const [newProducts, setNewProducts] = useState<IProduct[]>([]);
+  const [discountProducts, setDiscountProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
     // Функция для получения данных с популярных товаров
     const fetchPopularProducts = async () => {
       try {
-        const response = await fetch("/api/products/popular"); // Поменяйте на свой URL эндпоинта
+        const response = await fetch("/api/products/popular");
         const data = await response.json();
         setPopularProducts(data.popularProducts);
       } catch (error) {
@@ -57,7 +44,7 @@ export default function Home() {
     // Функция для получения данных с новых товаров
     const fetchNewProducts = async () => {
       try {
-        const response = await fetch("/api/products/new"); // Поменяйте на свой URL эндпоинта
+        const response = await fetch("/api/products/new");
         const data = await response.json();
         setNewProducts(data.newProducts);
       } catch (error) {
@@ -68,7 +55,7 @@ export default function Home() {
      // Функция для получения данных с скидками товаров
      const fetchDiscountProducts = async () => {
       try {
-        const response = await fetch("/api/products/discount"); // Поменяйте на свой URL эндпоинта
+        const response = await fetch("/api/products/discount");
         const data = await response.json();
         setDiscountProducts(data.discountProducts);
       } catch (error) {
@@ -113,10 +100,10 @@ export default function Home() {
       <section className="commercial">
         <div className="container">
           <Link href={"/"}>
-            <Image src={mackbook} alt="slide1" className="commercial__image" />
+            <Image src={macBook} alt="slide1" className="commercial__image" />
             <Image
-              src={mackbookMobile}
-              alt="slide1"
+              src={macBookMobile}
+              alt="macbook"
               className="commercial__image--mobile"
             />
           </Link>
@@ -126,7 +113,7 @@ export default function Home() {
         <div className="container">
           <div className="popular__inner">
             <h2>Скидки</h2>
-            <ProductsSlider products={discountProducts} isDiscounts={true} />
+            <ProductsSlider products={discountProducts} />
           </div>
         </div>
       </section>

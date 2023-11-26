@@ -1,6 +1,4 @@
-import { addDoc, collection } from "firebase/firestore";
-import { db, auth } from "@/lib/firebase/config.mjs";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { admin } from "@/app/api/(firebase)/firebase-admin";
 
 import { NextResponse } from "next/server";
 
@@ -9,30 +7,22 @@ export async function POST(req: Request) {
 
   try {
     // Регистрация пользователя в Firebase
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const fullUserObject = userCredential.user; // Возвращается объект пользователя от Firebase
-
-     // Установка имени пользователя (displayName)
-     await updateProfile(fullUserObject, {
+    const userRecord = await admin.auth().createUser({
+      email: email,
+      password: password,
       displayName: name,
     });
-    
     // Добавление пользователя в коллекцию "users" в Firestore
-    const usersCollection = collection(db, "users");
-    const newUserDocRef = await addDoc(usersCollection, {
-      uid: fullUserObject.uid,
-      email: fullUserObject.email,
-      name: fullUserObject.displayName,
-      photo: fullUserObject.photoURL,
-      provider: fullUserObject.providerData[0].providerId,
+    admin.firestore().collection("users").doc(userRecord.uid).set({
+      uid: userRecord.uid,
+      email: userRecord.email,
+      name: userRecord.displayName,
+      photo: null,
+      provider: userRecord.providerData[0].providerId,
     });
 
     return NextResponse.json(
-      { fullUserObject, userId: newUserDocRef.id },
+      { userRecord },
       {
         status: 201,
       }
@@ -47,7 +37,7 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-    if (error.code === "auth/email-already-in-use") {
+    if (error.code === "auth/email-already-exists") {
       return NextResponse.json(
         {
           error_message: "Этот адрес электронной почты уже используется.",

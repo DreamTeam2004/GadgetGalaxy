@@ -3,12 +3,14 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 interface Subcategory {
     id: string;
     name: string;
+    slug: string;
   }
 
 interface Category {
   id: string;
   name: string;
-  image: string;
+  slug: string;
+  img: string;
   subcategories: Subcategory[];
 }
 
@@ -34,8 +36,8 @@ export const getAllCategories = createAsyncThunk(
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data = await response.json();
-      return data.categories;
+      const { categories } = await response.json();
+      return categories;
     } catch (error) {
       throw new Error(`Failed to fetch categories: ${error}`);
     }
@@ -43,7 +45,7 @@ export const getAllCategories = createAsyncThunk(
 );
 
 const categoriesSlice = createSlice({
-  name: "categories",
+  name: "Categories",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -63,4 +65,4 @@ const categoriesSlice = createSlice({
   },
 });
 
-export const categoriesReducer = categoriesSlice.reducer;
+export const CategoriesReducer = categoriesSlice.reducer;

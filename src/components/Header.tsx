@@ -1,5 +1,5 @@
 "use client";
-// Header.tsx
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -19,13 +19,15 @@ import { RootState } from "@/lib/store/store";
 import { toast } from "react-toastify";
 import { clearUser } from "@/lib/store/slices/UserSlice";
 import { signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase/config.mjs";
+import { auth } from "@/lib/firebase/firebase.mjs";
+import useAuth from "@/hooks/useAuth";
 
 const Header = () => {
   const [isNavigationShow, setNavigationIsShow] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.User);
+  useAuth();
 
   const openAuthModal = () => {
     setIsAuthModalOpen(true);
@@ -96,7 +98,7 @@ const Header = () => {
                     <HeartIcon className="header__nav-icon" />
                   </li>
                 </Link>
-                {user.uid ? (
+                {user.accessToken ? (
                   <li className="header__nav-item">
                     {user.photo ? (
                       <div className="header__nav-icon--user">
@@ -112,16 +114,18 @@ const Header = () => {
                       <UnionIcon className="header__nav-icon" />
                     )}
                     <div className="dropdown-menu">
-                    <ul className="dropdown-menu__inner">
-                      <li className="dropdown-menu__item--name">{user.name ? user.name : "Вы"}</li>
-                      <li className="dropdown-menu__item">Личный кабинет</li>
-                      <li
-                        className="dropdown-menu__item"
-                        onClick={handleLogout}
-                      >
-                        Выйти
-                      </li>
-                    </ul>
+                      <ul className="dropdown-menu__inner">
+                        <li className="dropdown-menu__item--name">
+                          {user.name ? user.name : "Вы"}
+                        </li>
+                        <li className="dropdown-menu__item">Личный кабинет</li>
+                        <li
+                          className="dropdown-menu__item"
+                          onClick={handleLogout}
+                        >
+                          Выйти
+                        </li>
+                      </ul>
                     </div>
                   </li>
                 ) : (
@@ -134,7 +138,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {isNavigationShow && <Navigation />}
+      {isNavigationShow && <Navigation  onClose={() => setNavigationIsShow(false)} />}
       <AuthModal isOpen={isAuthModalOpen} onRequestClose={closeAuthModal} />
     </div>
   );
