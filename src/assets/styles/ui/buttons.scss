@@ -1,4 +1,4 @@
-.button-1 {
+.button {
   display: flex;
   align-self: flex-end;
   width: 36px;
@@ -6,7 +6,6 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: #dde1e8;
   background-repeat: no-repeat;
   @include laptop {
     width: 30px;
@@ -21,9 +20,17 @@
     height: 15px;
   }
 
+  &--grey {
+    background: #dde1e8;
+  }
+
+  &--white {
+    background: #fff;
+  }
+
   &:hover {
-    color: #fff;
     background: $primaryColor;
+
     &.basket {
       background: $primaryColor;
       transition: background 0.25s ease-in-out;

@@ -64,6 +64,10 @@ const ProductsSlider: React.FC<ProductsSliderProps> = ({
     ],
   };
 
+  // if (!products) {
+  //   return <div>Loading...</div>;
+  // }
+
   return (
     <Slider {...settings} className="list">
       {products.map((product) => (

@@ -1,6 +1,4 @@
-import Header from "@/components/Header";
-import HeaderMobile from "@/components/HeaderMobile";
-import Footer from "@/components/Footer";
+
 export default function CatalogLayout({
   children,
 }: {

@@ -3,201 +3,211 @@
 @import "../ui//buttons.scss";
 
 .product-cardV2 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid var(--grey-100, #eef0f4);
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.3s ease-in-out;
+    .product-cardV2__name {
+      color: $primaryColor;
+      transition: color 0.2s ease-in-out;
+    }
+  }
+  @include mobile {
+    flex-direction: column;
+    gap: 15px;
+  }
+  &__left {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 20px;
-    background: #fff;
-    border-radius: 6px;
-    border: 1px solid var(--grey-100, #eef0f4);
-    cursor: pointer;
-    &:hover {
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-      transition: box-shadow 0.3s ease-in-out;
-      .product-cardV2__name {
-        color: $primaryColor;
-        transition: color 0.2s ease-in-out;
+    gap: 20px;
+
+    .rating__stars {
+      font-size: 24px;
+      @include mobile {
+        font-size: 16px;
       }
+    }
+    .rating__reviews {
+      margin-top: 5px;
+      margin-left: 10px;
+      font-size: 16px;
+      @include mobile {
+        font-size: 12px;
+        margin-left: 5px;
+      }
+    }
+  }
+  &__text {
+    height: 85px;
+    @include tablet {
+      height: 65px;
     }
     @include mobile {
-      flex-direction: column;
-      gap: 15px;
+      height: 50px;
     }
-    &__left {
-      display: flex;
-      gap: 20px;
-  
-      .rating__stars {
-        font-size: 24px;
-        @include mobile {
-          font-size: 16px;
-        }
-      }
-      .rating__reviews {
-        margin-top: 5px;
-        margin-left: 10px;
-        font-size: 16px;
-        @include mobile {
-          font-size: 12px;
-          margin-left: 5px;
-        }
-      }
-    }
-    &__text {
-      height: 85px;
-      @include tablet {
-        height: 65px;
-      }
-      @include mobile {
-        height: 50px;
-      }
-    }
-    &__category {
-      color: #5f6c72;
-  
+  }
+  &__category {
+    color: #5f6c72;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 10px;
+    @include laptop {
       font-size: 12px;
+    }
+    @include tablet {
+      display: none;
+    }
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__name {
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 15px 0 5px 0;
+    max-width: 450px;
+    @include laptop {
+      font-size: 16px;
+      max-width: 300px;
+    }
+    @include tablet {
+      font-size: 16px;
+      max-width: 275px;
+    }
+    @include mobile {
+      font-size: 14px;
+    }
+  }
+
+  &__image {
+    position: relative;
+    height: 115px;
+    width: 125px;
+    @include laptop {
+      height: 115px;
+      width: 125px;
+    }
+    @include tablet {
+      height: 115px;
+      width: 125px;
+    }
+    @include mobile {
+      height: 115px;
+      min-width: 125px;
+    }
+  }
+  &__right {
+    display: flex;
+    gap: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @include mobile {
+      align-items: flex-start;
+      gap: 10px;
+    }
+  }
+  &__price {
+    display: flex;
+    color: #1d232c;
+
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    @include mobile {
+      align-self: flex-end;
+      font-size: 20px;
+    }
+    &-old {
+      color: #1d232c;
+      font-size: 12px;
+      font-style: normal;
       font-weight: 400;
       line-height: normal;
-      margin-bottom: 10px;
-      @include laptop {
-        font-size: 12px;
-      }
-      @include tablet {
-        display: none;
-      }
-      @include mobile {
-        display: none;
-      }
-    }
-  
-    &__name {
-      color: #000;
-      font-size: 20px;
-      font-weight: 500;
-      margin: 15px 0 5px 0;
-      max-width: 450px;
-      @include laptop {
-        font-size: 16px;
-        max-width: 300px;
-      }
-      @include tablet {
-        font-size: 16px;
-        max-width: 275px;
-      }
+      text-decoration-line: line-through;
       @include mobile {
         font-size: 14px;
       }
     }
-  
-    &__image {
-      position: relative;
-      height: 115px;
-      width: 125px;
-      @include laptop {
-        height: 115px;
-        width: 125px;
-      }
-      @include tablet {
-        height: 115px;
-        width: 125px;
-      }
-      @include mobile {
-        height: 115px;
-        min-width: 125px;
-      }
-    }
-    &__right {
-      display: flex;
-      gap: 25px;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-  
-      @include mobile {
-        align-items: flex-start;
-        gap: 10px;
-      }
-    }
-    &__price {
-      display: flex;
-      color: #1d232c;
-  
-      font-size: 24px;
+    &-new {
+      color: #20e764;
+      font-size: 20px;
       font-style: normal;
       font-weight: 500;
       line-height: normal;
-      @include mobile {
-        align-self: flex-end;
-        font-size: 20px;
-      }
-      &-old {
-        color: #1d232c;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        text-decoration-line: line-through;
-        @include mobile {
-          font-size: 14px;
-        }
-      }
-      &-new {
-        color: #20e764;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        margin-right: 5px;
+      margin-right: 5px;
+    }
+  }
+  &__buttons {
+    display: flex;
+    gap: 15px;
+    &-buy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+    @include mobile {
+      margin-top: 5px;
+      align-self: flex-end;
+      &-buy {
+        gap: 0px;
       }
     }
-    &__buttons {
+    &--basket {
       display: flex;
-      gap: 15px;
-      @include mobile {
-        margin-top: 5px;
-        align-self: flex-end;
+      padding: 10px 20px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 24px;
+      background: $primaryColor;
+
+      color: #fff;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 400;
+      cursor: pointer;
+      @include laptop {
+        font-size: 14px;
       }
-      &--basket {
-        display: flex;
-        padding: 10px 20px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 24px;
-        background: $primaryColor;
-  
-        color: #fff;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 400;
-        cursor: pointer;
+      @include tablet {
+        font-size: 14px;
+      }
+      @include mobile {
+        // padding: 5px 10px;
+        font-size: 14px;
+        margin-top: 15px;
+      }
+    }
+    .button-1 {
+      &.favorites {
+        width: 45px;
+        height: 45px;
         @include laptop {
-          font-size: 14px;
+          width: 35px;
+          height: 35px;
         }
         @include tablet {
-          font-size: 14px;
+          width: 35px;
+          height: 35px;
         }
         @include mobile {
-          padding: 5px 10px;
-          font-size: 14px;
-        }
-      }
-      .button-1 {
-        &.favorites {
-          width: 45px;
-          height: 45px;
-          @include laptop {
-            width: 35px;
-            height: 35px;
-          }
-          @include tablet {
-            width: 35px;
-            height: 35px;
-          }
-          @include mobile {
-            width: 35px;
-            height: 35px;
-          }
+          width: 35px;
+          height: 35px;
         }
       }
     }
   }
+}

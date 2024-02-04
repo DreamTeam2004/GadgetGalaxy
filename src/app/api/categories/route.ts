@@ -7,6 +7,7 @@ export async function GET() {
     const querySnapshot = await admin
       .firestore()
       .collection("categories")
+      .orderBy("order")
       .get();
 
     for (const doc of querySnapshot.docs) {
