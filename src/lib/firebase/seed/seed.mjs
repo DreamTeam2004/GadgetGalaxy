@@ -57,7 +57,6 @@ async function seedFirestoreSubCategories() {
                 console.error(`Category not found for product: ${data.name}`);
                 continue; // Пропустить продукт, если категория не найдена
             }
-
             const categoryDoc = categoryQuerySnapshot.docs[0];
             // Добавьте подкатегории в Firestore
             const subCategoryRef = await addDoc(collection(db, "subcategories"), {
@@ -67,6 +66,20 @@ async function seedFirestoreSubCategories() {
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp()
             });
+            // Создайте ссылку на место в Firebase Storage, где сохранить изображение подкатегории
+            const subcategoryImageFileName = `${subCategoryRef.id}.png`; // Имя изображения, основанное на doc.id
+            const subcategoryImageRef = ref(storage, `subcategoriesImg/${subcategoryImageFileName}`);
+            // Ваш путь к локальному файлу изображения подкатегории
+            const subcategoryImagePath = `src/lib/firebase/seed/seedImg/subcategories/${subcategory.image}`;
+            // Прочтите изображение в бинарные данные
+            const subcategoryImageData = fs.readFileSync(subcategoryImagePath);
+            // Загрузите изображение в Firebase Storage
+            await uploadBytes(subcategoryImageRef, subcategoryImageData);
+            console.log("Image successfully uploaded to Firebase Storage: ", subcategoryImageFileName);
+            // Получите URL загруженного изображения
+            const subcategoryImg = await getDownloadURL(subcategoryImageRef);
+            // Обновите документ в Firestore, добавив поле img
+            await updateDoc(doc(db, "subcategories", subCategoryRef.id), { img: subcategoryImg });
             console.log("Subcategory document written with ID: ", subCategoryRef.id);
         } catch (error) {
             console.error("Error adding document: ", error);
@@ -132,13 +145,13 @@ async function seedFirestoreProducts() {
 
                 // Добавьте ссылку на изображение в массив images продукта
                 const downloadURL = await getDownloadURL(imageRef);
-                images.push( downloadURL );
+                images.push(downloadURL);
             }
 
             // Обновите документ в Firestore, добавив поле photo
             await updateDoc(doc(db, "products", productRef.id), { images });
             console.log("Product document written with ID: ", productRef.id);
-             
+
         } catch (error) {
             console.error("Error adding document: ", error);
         }
@@ -146,8 +159,8 @@ async function seedFirestoreProducts() {
 }
 
 async function seedFirestore() {
-    await seedFirestoreCategories();
-    await seedFirestoreSubCategories();
+    // await seedFirestoreCategories();
+    // await seedFirestoreSubCategories();
     await seedFirestoreProducts();
     console.log("Seed finished adding data");
     process.exit(0);

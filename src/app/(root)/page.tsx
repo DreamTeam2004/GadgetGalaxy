@@ -1,4 +1,3 @@
-"use client"
 import Link from "next/link";
 import Image from "next/image";
 
@@ -17,57 +16,18 @@ import Categories from "@/components/Categories";
 
 import "@/assets/styles/style-pages/main-page.scss";
 
-import { useEffect, useState } from "react";
-import { IProduct } from "@/@types/IProduct";
+import { getDiscountProducts, getNewProducts, getPopularProducts } from "@/actions/products";
 
-// export const metadata = {
-//   title: "GadgetGalaxy - Главная",
-// };
+export const metadata = {
+  title: "GadgetGalaxy - Главная",
+};
 
-export default function Home() {
-  const [popularProducts, setPopularProducts] = useState<IProduct[]>([]);
-  const [newProducts, setNewProducts] = useState<IProduct[]>([]);
-  const [discountProducts, setDiscountProducts] = useState<IProduct[]>([]);
+export default async function Home() {
+ 
+  const popularProducts = await getPopularProducts();
+  const newProducts = await getNewProducts();
+  const discountProducts = await getDiscountProducts();
 
-  useEffect(() => {
-    // Функция для получения данных с популярных товаров
-    const fetchPopularProducts = async () => {
-      try {
-        const response = await fetch("/api/products/popular");
-        const data = await response.json();
-        setPopularProducts(data.popularProducts);
-      } catch (error) {
-        console.error("Ошибка при запросе популярных товаров", error);
-      }
-    };
-
-    // Функция для получения данных с новых товаров
-    const fetchNewProducts = async () => {
-      try {
-        const response = await fetch("/api/products/new");
-        const data = await response.json();
-        setNewProducts(data.newProducts);
-      } catch (error) {
-        console.error("Ошибка при запросе новых товаров", error);
-      }
-    };
-
-     // Функция для получения данных с скидками товаров
-     const fetchDiscountProducts = async () => {
-      try {
-        const response = await fetch("/api/products/discount");
-        const data = await response.json();
-        setDiscountProducts(data.discountProducts);
-      } catch (error) {
-        console.error("Ошибка при запросе новых товаров", error);
-      }
-    };
-
-    // Вызываем функции для получения данных при монтировании компонента
-    fetchPopularProducts();
-    fetchNewProducts();
-    fetchDiscountProducts();
-  }, []); // Пустой массив зависимостей, чтобы запросы выполнялись только один раз при монтировании
   return (
     <main>
       <Banner />

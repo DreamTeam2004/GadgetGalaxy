@@ -28,27 +28,30 @@ export default function ProductCardList({ product }: ProductCardProps) {
         </div>
 
         <div className="product-cardV2__text">
-          <p className="product-cardV2__category">{product.category}</p>
+          <p className="product-cardV2__category">{product.subcategory}</p>
           <h4 className="product-cardV2__name">{product.name}</h4>
           <Rating rating={product.rating} reviewsCount={product.reviewsCount} />
         </div>
       </div>
 
       <div className="product-cardV2__right">
-        {isDiscount ? (
-          <div className="product-cardV2__price">
-            <p className="product-cardV2__price-new">${product.newPrice}</p>
-            <p className="product-cardV2__price-old">${product.price}</p>
-          </div>
-        ) : (
-          <div className="product-cardV2__price">${product.price}</div>
-        )}
-
         <div className="product-cardV2__buttons">
-          <button className="button-1 favorites">
+          <button className="button favorites">
             <HeartIcon className="favoritesIcon" height={40} />
           </button>
-          <button className="product-cardV2__buttons--basket">Добавить в корзину</button>
+          <div className="product-cardV2__buttons-buy">
+            {isDiscount ? (
+              <div className="product-cardV2__price">
+                <p className="product-cardV2__price-new">${product.newPrice}</p>
+                <p className="product-cardV2__price-old">${product.price}</p>
+              </div>
+            ) : (
+              <div className="product-cardV2__price">${product.price}</div>
+            )}
+            <button className="product-cardV2__buttons--basket">
+              Добавить в корзину
+            </button>
+          </div>
         </div>
       </div>
     </div>

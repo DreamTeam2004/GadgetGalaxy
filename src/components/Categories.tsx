@@ -49,7 +49,7 @@ export default function Categories() {
                     sizes="(min-width: 1280px) 200px, (min-width: 1024px) and (max-width: 1279px) 175px, (min-width: 768px) and (max-width: 1023px) 150px, (max-width: 767px) 75px"
                   />
                 </div>
-                <button className="button-1">
+                <button className="button">
                   <ArrowIcon width={16} height={16} />
                 </button>
             </Link>

@@ -19,7 +19,7 @@ export default function ProductCardGrid({ product }: ProductCardProps) {
   return (
     <div className="product-cardV1">
       <div className="product-cardV1__text">
-        <p className="product-cardV1__category">{product.category}</p>
+        <p className="product-cardV1__category">{product.subcategory}</p>
         <h4 className="product-cardV1__name">{product.name}</h4>
         <Rating rating={product.rating} reviewsCount={product.reviewsCount} />
       </div>
@@ -44,10 +44,10 @@ export default function ProductCardGrid({ product }: ProductCardProps) {
         )}
 
         <div className="product-cardV1__buttons">
-          <button className="button-1 favorites">
+          <button className="button favorites">
             <HeartIcon className="favoritesIcon" height={30} />
           </button>
-          <button className="button-1 basket">
+          <button className="button basket">
             <ShoppingIcon className="basketIcon" height={30} />
           </button>
         </div>
