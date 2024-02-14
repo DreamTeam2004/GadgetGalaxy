@@ -1,31 +1,15 @@
+import { connectMongoDB } from "@/DB/mongoDB/mongoDB";
+import { CategoryModel } from "@/DB/models/categoryModel";
 import { NextResponse } from "next/server";
-import { admin } from "../(firebase)/firebase-admin";
 
 export async function GET() {
   try {
-    const categories = [];
-    const querySnapshot = await admin
-      .firestore()
-      .collection("categories")
-      .orderBy("order")
-      .get();
+    await connectMongoDB();
 
-    for (const doc of querySnapshot.docs) {
-      const data = doc.data();
-
-      // Получаем подкатегории для текущей категории
-      const subcategoriesQuery = admin
-        .firestore()
-        .collection("subcategories")
-        .where("categoryID", "==", doc.id);
-      const subcategoriesSnapshot = await subcategoriesQuery.get();
-      const subcategories = subcategoriesSnapshot.docs.map((subDoc) => {
-        const subData = subDoc.data();
-        return { id: subDoc.id, ...subData };
-      });
-
-      categories.push({ id: doc.id, ...data, subcategories });
-    }
+    // Получение категорий из MongoDB
+    const categories = await CategoryModel.find()
+      .sort({ order: 1 })
+      .populate("subcategories"); // включаем подкатегории
 
     return NextResponse.json(
       { categories },
@@ -34,8 +18,9 @@ export async function GET() {
       }
     );
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
-      { error: error },
+      { error },
       {
         status: 500,
       }

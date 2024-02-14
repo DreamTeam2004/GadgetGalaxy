@@ -1,5 +1,6 @@
-import { admin } from "@/app/api/(firebase)/firebase-admin";
-import { OrderByDirection } from "firebase-admin/firestore";
+import { connectMongoDB } from "@/DB/mongoDB/mongoDB";
+import { ProductModel } from "@/DB/models/productModel";
+import { SubCategoryModel } from "@/DB/models/subCategoryModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
@@ -14,18 +15,13 @@ export async function GET(
     perPage
   );
   const sortField = req.nextUrl.searchParams.get("sortField") || "price";
-  const sortDirection =
-    (req.nextUrl.searchParams.get("sortDirection") as OrderByDirection) ||
-    "asc";
+  const sortDirection = req.nextUrl.searchParams.get("sortDirection") || "asc";
   try {
-    // Получаем категорию по slug
-    const categorySnapshot = await admin
-      .firestore()
-      .collection("subcategories")
-      .where("slug", "==", category)
-      .get();
+    await connectMongoDB();
 
-    if (categorySnapshot.empty) {
+    // Получаем подкатегорию по slug
+    const subcategory = await SubCategoryModel.findOne({ slug: category });
+    if (!subcategory) {
       return NextResponse.json(
         { error_message: "Категория не найдена" },
         {
@@ -34,62 +30,19 @@ export async function GET(
       );
     }
 
-    // Используем имя документа в качестве id
-    const subcategoryID = categorySnapshot.docs[0].id;
-    const subcategory = categorySnapshot.docs[0].data();
+    // Информация для пагинации о общем количестве продуктов
+    const totalProducts = await ProductModel.countDocuments({
+      subcategory: subcategory._id,
+    });
 
-    // Информация для пагинации о общем кол-ве продуктов
-    const totalProductsSnapshot = await admin
-      .firestore()
-      .collection("products")
-      .where("subcategoryID", "==", subcategoryID)
-      .orderBy(sortField, sortDirection)
-      .get();
-    const totalProducts = totalProductsSnapshot.size;
-    const startIndex = (+page - 1) * perPage;
+    const startIndex = (page - 1) * perPage;
     const endIndex = Math.min(startIndex + itemsPerPage, totalProducts);
 
     // Запрос на товары для конкретной страницы
-    let productsQuery = await admin
-      .firestore()
-      .collection("products")
-      .where("subcategoryID", "==", subcategoryID)
-      .orderBy(sortField, sortDirection);
-    // не используем startAfter для первой страницы
-    if (startIndex > 0) {
-      const startAfterDoc = totalProductsSnapshot.docs[startIndex - 1];
-      productsQuery = productsQuery.startAfter(startAfterDoc);
-    }
-    const productsSnapshot = await productsQuery.limit(itemsPerPage).get();
-
-    const products = await Promise.all(
-      productsSnapshot.docs.map(async (doc) => {
-        const data = doc.data();
-        // Получаем данные категории
-        const categoryDoc = await admin
-          .firestore()
-          .collection("categories")
-          .doc(data.categoryID)
-          .get();
-        const category = categoryDoc?.data()?.name;
-        // Получаем данные подкатегории
-        const subcategoryDoc = await admin
-          .firestore()
-          .collection("subcategories")
-          .doc(data.subcategoryID)
-          .get();
-        const subcategory = subcategoryDoc?.data()?.name;
-        // Обновляем значения createdAt и updatedAt в объекте
-        data.createdAt = data.createdAt.toDate().toLocaleString();
-        data.updatedAt = data.updatedAt.toDate().toLocaleString();
-        return {
-          id: doc.id,
-          category,
-          subcategory,
-          ...data,
-        };
-      })
-    );
+    const products = await ProductModel.find({ subcategory: subcategory._id })
+      .sort({ [sortField]: sortDirection as "asc" | "desc" })
+      .skip(startIndex)
+      .limit(itemsPerPage);
 
     return NextResponse.json(
       {
@@ -109,7 +62,7 @@ export async function GET(
   } catch (error) {
     console.log("Ошибка получения данных о продуктах:", error);
     return NextResponse.json(
-      { error: error },
+      { error },
       {
         status: 500,
       }

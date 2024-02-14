@@ -1,21 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { ICategory } from "@/DB/models/categoryModel";
 
-interface Subcategory {
-    id: string;
-    name: string;
-    slug: string;
-  }
-
-interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  img: string;
-  subcategories: Subcategory[];
-}
 
 interface CategoriesState {
-  data: Category[];
+  data: ICategory[];
   loading: boolean;
   error: string | null;
 }

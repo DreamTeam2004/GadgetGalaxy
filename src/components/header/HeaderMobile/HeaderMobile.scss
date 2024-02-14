@@ -1,0 +1,58 @@
+@import "../../../assets/styles/vars";
+@import "../../../assets/styles/mixins";
+
+.header__wrapper--mobile {
+  display: none;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  @include laptop {
+    display: none;
+  }
+  @include tablet {
+    display: block;
+  }
+  @include mobile {
+    position: sticky;
+    display: block;
+  }
+  .header {
+    border-top: 2px solid #ebebeb;
+    background: #fff;
+    &__nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 10px 0;
+      @include tablet {
+        gap: 55px;
+      }
+      @include mobile {
+        gap: 25px;
+      }
+      &-item {
+        height: 45px;
+        width: 45px;
+        &:hover {
+          .header__nav-icon * {
+            fill: $primaryColor;
+            transition: fill 0.25s ease-in-out;
+          }
+        }
+      }
+      &-icon--user {
+        height: 45px;
+        width: 45px;
+        position: relative;
+
+        &-photo {
+          border-radius: 50%;
+        }
+      }
+      @include laptop {
+        gap: 20px;
+      }
+    }
+  }
+}

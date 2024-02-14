@@ -1,0 +1,27 @@
+@import "../../../assets/styles/vars";
+
+.rating {
+  display: flex;
+  align-items: center;
+  &__stars {
+    font-size: 15px;/* Размер звёзд */
+    color: $star; /* Цвет звёзд (заполненных) */
+  }
+  &__reviews {
+    color:  #77878f;
+
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    margin-left: 5px;
+  }
+}
+
+.star-filled {
+  color: $star; /* Цвет заполненных звёзд */
+}
+
+.star-empty {
+  color: #ccc; /* Цвет пустых звёзд */
+}

@@ -1,30 +1,29 @@
+import { connectMongoDB } from "@/DB/mongoDB/mongoDB";
+import { UserModel } from "@/DB/models/userModel";
 import { NextResponse } from "next/server";
-import { admin } from "@/app/api/(firebase)/firebase-admin";
 
 export async function POST(req: Request) {
   const { userPayload } = await req.json();
   try {
+    await connectMongoDB();
+
     // Проверяем существование пользователя в коллекции "users" по UID
-    const userDoc = await admin
-      .firestore()
-      .collection("users")
-      .doc(userPayload.uid)
-      .get();
-    if (!userDoc.exists) {
-      // Добавление пользователя в коллекцию "users" в Firestore
-      const userRecord = await admin
-        .firestore()
-        .collection("users")
-        .doc(userPayload.uid)
-        .set({
-          uid: userPayload.uid,
-          email: userPayload.email,
-          name: userPayload.name,
-          photo: userPayload.photo,
-          provider: userPayload.provider,
-        });
+    const existingUser = await UserModel.findOne({ uid: userPayload.uid });
+
+    if (!existingUser) {
+      // Добавление пользователя в коллекцию "users" в MongoDB с помощью Mongoose
+      const newUser = new UserModel({
+        uid: userPayload.uid,
+        email: userPayload.email,
+        name: userPayload.name,
+        photo: userPayload.photo,
+        provider: userPayload.provider,
+      });
+
+      await newUser.save();
+
       return NextResponse.json(
-        { userRecord },
+        { newUser },
         {
           status: 201,
         }

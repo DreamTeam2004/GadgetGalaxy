@@ -3,7 +3,13 @@
 const baseURL = process.env.NEXT_APP_SERVER_URL;
 
 // Функцию для получения товаров по категории
-export async function getProductsByCategory(subcategory: string, page: number, items: number, sortField: string, sortDirection: string) {
+export async function getProductsByCategory(
+  subcategory: string,
+  page: number,
+  items: number,
+  sortField: string,
+  sortDirection: string
+) {
   try {
     // ??? обновление данных при каждом запросе без кеширования
     const response = await fetch(
@@ -24,7 +30,9 @@ export async function getProductsByCategory(subcategory: string, page: number, i
 // Функция для получения данных с популярных товаров
 export async function getPopularProducts() {
   try {
-    const response = await fetch(`${baseURL}/products/popular`);
+    const response = await fetch(`${baseURL}/products/popular`, {
+      cache: "no-store",
+    });
     return (await response.json()).popularProducts;
   } catch (error) {
     console.error("Ошибка при запросе популярных товаров", error);
@@ -34,7 +42,9 @@ export async function getPopularProducts() {
 // Функция для получения данных с новых товаров
 export async function getNewProducts() {
   try {
-    const response = await fetch(`${baseURL}/products/new`);
+    const response = await fetch(`${baseURL}/products/new`, {
+      cache: "no-store",
+    });
     return (await response.json()).newProducts;
   } catch (error) {
     console.error("Ошибка при запросе популярных товаров", error);
@@ -44,7 +54,9 @@ export async function getNewProducts() {
 // Функция для получения данных с скидками товаров
 export async function getDiscountProducts() {
   try {
-    const response = await fetch(`${baseURL}/products/discount`);
+    const response = await fetch(`${baseURL}/products/discount`, {
+      cache: "no-store",
+    });
     return (await response.json()).discountProducts;
   } catch (error) {
     console.error("Ошибка при запросе популярных товаров", error);

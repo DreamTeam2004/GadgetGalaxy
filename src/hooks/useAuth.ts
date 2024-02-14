@@ -1,4 +1,4 @@
-import { auth } from "@/lib/firebase/firebase.mjs";
+import { auth } from "@/DB/firebase/firebase";
 import { setUser } from "@/lib/store/slices/UserSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -7,7 +7,7 @@ const useAuth = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async authUser => {
+    const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       // Если пользователь аутентифицирован, формируем объект с данными пользователя
       const user = authUser
         ? {

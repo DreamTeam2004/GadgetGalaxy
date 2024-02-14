@@ -1,58 +1,51 @@
-import { admin } from "@/app/api/(firebase)/firebase-admin";
+import { auth } from "@/DB/firebase/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
+import { connectMongoDB } from "@/DB/mongoDB/mongoDB";
+import { UserModel } from "@/DB/models/userModel";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const { name, email, password } = await req.json();
 
   try {
-    // Регистрация пользователя в Firebase
-    const userRecord = await admin.auth().createUser({
-      email: email,
-      password: password,
-      displayName: name,
-    });
-    // Добавление пользователя в коллекцию "users" в Firestore
-    admin.firestore().collection("users").doc(userRecord.uid).set({
-      uid: userRecord.uid,
-      email: userRecord.email,
-      name: userRecord.displayName,
-      photo: null,
-      provider: userRecord.providerData[0].providerId,
-    });
-
-    return NextResponse.json(
-      { userRecord },
-      {
-        status: 201,
-      }
+    await connectMongoDB();
+    
+    // Создание пользователя в Firebase
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
     );
+    const { user } = userCredential;
+
+    // Успешная регистрация
+    if (user) {
+      // Обновление профиля пользователя, чтобы установить displayName
+      await updateProfile(user, { displayName: name });
+
+      // Сохранение пользователя в MongoDB
+      const userRecord = await UserModel.create({
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        photo: null,
+        provider: user.providerData[0]?.providerId || null,
+      });
+
+      return NextResponse.json({ userRecord }, { status: 201 });
+    } else {
+      throw new Error("Не удалось завершить регистрацию.");
+    }
   } catch (error: any) {
     // console.error("Ошибка регистрации:", error);
-    if (error.code === "auth/invalid-email") {
-      return NextResponse.json(
-        {
-          error_message: "Неверный формат электронной почты.",
-        },
-        { status: 400 }
-      );
-    }
-    if (error.code === "auth/email-already-exists") {
-      return NextResponse.json(
-        {
-          error_message: "Этот адрес электронной почты уже используется.",
-        },
-        { status: 400 }
-      );
-    }
+    const errorMessage =
+      error.code === "auth/invalid-email"
+        ? "Неверный формат электронной почты."
+        : error.code === "auth/email-already-in-use"
+        ? "Этот адрес электронной почты уже используется."
+        : "Ошибка сервера при регистрации пользователя.";
 
-    return NextResponse.json(
-      {
-        error_message: "Ошибка сервера при регистрации пользователя.",
-      },
-      {
-        status: 500,
-      }
-    );
+    return NextResponse.json({ error_message: errorMessage }, { status: 400 });
   }
 }

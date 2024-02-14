@@ -1,4 +1,4 @@
-import { admin } from "@/app/api/(firebase)/firebase-admin";
+import { UserModel } from "@/DB/models/userModel";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -23,20 +23,40 @@ export async function GET(
 
     const idToken = authorizationHeader.replace("Bearer ", "");
 
-    // Проверка авторизации пользователя с использованием токена ID
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    if (decodedToken.uid !== uid) {
+    // Проверка авторизации пользователя с помощью удалённого запроса к firebase
+    const response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${process.env.NEXT_PUBLIC_FIREBASE_API_KEY}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      }
+    );
+
+    if (!response.ok) {
       return NextResponse.json(
-        { error_message: "Доступ запрещён. Чужой профиль." },
         {
-          status: 403,
+          error_message: "Пользователь не авторизован.",
+        },
+        {
+          status: 401,
         }
       );
     }
 
-    // Проверяем, есть ли пользователь в Firestore по UID
-    const userDoc = await admin.firestore().collection("users").doc(uid).get();
-    if (!userDoc.exists) {
+    const data = await response.json();
+
+    if (data.users?.[0]?.localId !== uid) {
+      return NextResponse.json(
+        { error_message: "Доступ запрещён. Чужой профиль." },
+        { status: 403 }
+      );
+    }
+    const user = await UserModel.findOne({ uid });
+
+    if (!user) {
       return NextResponse.json(
         {
           error_message: "Пользователь не найден.",
@@ -48,32 +68,16 @@ export async function GET(
       );
     }
 
-    // Извлечение данных из DocumentSnapshot
-    const data = userDoc.data();
-    // Возвращение информации о пользователе
     return NextResponse.json(
       {
-        data,
+        user,
       },
       {
         status: 200,
       }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("Ошибка получения данных о пользователе:", error);
-    // Проверяем, является ли ошибка ошибкой истекшего токена
-    if (
-      error.code === 'auth/id-token-expired'
-    ) {
-      return NextResponse.json(
-        {
-          error_message: "Firebase ID токен устарел.",
-        },
-        {
-          status: 401,
-        }
-      );
-    }
     return NextResponse.json(
       {
         error_message: "Ошибка сервера при получении данных о пользователе.",
