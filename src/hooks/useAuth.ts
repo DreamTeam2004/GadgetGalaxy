@@ -1,4 +1,4 @@
-import { auth } from "@/DB/firebase/firebase";
+import { auth } from "@/DB/firebase";
 import { setUser } from "@/lib/store/slices/UserSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";

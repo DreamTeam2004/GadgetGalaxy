@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Schema, Types } from "mongoose";
+import { Document, Schema, Types } from "mongoose";
 import { ICategory } from "./categoryModel";
 import { ISubCategory } from "./subCategoryModel";
 
@@ -14,7 +14,7 @@ interface IProduct extends Document {
   images: string[];
 }
 
-const productSchema = new Schema<IProduct>(
+export const productSchema = new Schema<IProduct>(
   {
     name: {
       type: String,
@@ -58,8 +58,4 @@ const productSchema = new Schema<IProduct>(
   { timestamps: true }
 );
 
-const ProductModel: Model<IProduct> =
-  mongoose.models.Product || mongoose.model<IProduct>("Product", productSchema);
-
-export { ProductModel };
 export type { IProduct };

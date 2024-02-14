@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ICategory } from "@/DB/models/categoryModel";
 
 
+
 interface CategoriesState {
   data: ICategory[];
   loading: boolean;

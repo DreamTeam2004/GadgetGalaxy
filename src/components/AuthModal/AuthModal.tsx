@@ -12,7 +12,7 @@ import {
   loginUserWithGoogle,
   loginUserWithPassword,
 } from "@/lib/store/slices/UserSlice";
-import { AppDispatch } from "@/lib/store/store";
+import { AppDispatch } from "@/lib/store";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 import "./Modal.scss";
@@ -103,7 +103,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onRequestClose }) => {
       });
       const data = await response.json();
       if (response.ok) {
-        console.log(data.userRecord)
+        console.log(data.userRecord);
         toast.success("Регистрация прошла успешно");
         switchToSignIn();
       } else {

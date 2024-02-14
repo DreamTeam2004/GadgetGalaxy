@@ -6,7 +6,7 @@ import { getAllCategories } from "@/lib/store/slices/categoriesSlice";
 import Link from "next/link";
 import Image from "next/image";
 import ArrowIcon from "@/assets/images/icon-arrow.svg";
-import { AppDispatch, RootState } from "@/lib/store/store";
+import { AppDispatch, RootState } from "@/lib/store";
 
 import "./Categories.scss";
 

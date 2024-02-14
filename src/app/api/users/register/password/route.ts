@@ -1,8 +1,7 @@
-import { auth } from "@/DB/firebase/firebase";
+import { auth } from "@/DB/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-import { connectMongoDB } from "@/DB/mongoDB/mongoDB";
-import { UserModel } from "@/DB/models/userModel";
+import { connectMongoDB, UserModel } from "@/DB/mongoDB";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -10,7 +9,7 @@ export async function POST(req: Request) {
 
   try {
     await connectMongoDB();
-    
+
     // Создание пользователя в Firebase
     const userCredential = await createUserWithEmailAndPassword(
       auth,

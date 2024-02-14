@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "ts-node src/DB/seed/seed.ts"
+    "seed": "ts-node src/DB/seed/index.ts"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",

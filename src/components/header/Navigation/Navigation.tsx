@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/lib/store/store";
+import { AppDispatch, RootState } from "@/lib/store";
 import { getAllCategories } from "@/lib/store/slices/categoriesSlice";
 import { useEffect } from "react";
 import { ISubCategory } from "@/DB/models/subCategoryModel";

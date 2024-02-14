@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
+import { Document, Schema } from "mongoose";
 import { ICategory } from "./categoryModel";
 
 interface ISubCategory extends Document {
@@ -8,7 +8,7 @@ interface ISubCategory extends Document {
   img?: string | null;
 }
 
-const subCategorySchema = new Schema<ISubCategory>(
+export const subCategorySchema = new Schema<ISubCategory>(
   {
     name: {
       type: String,
@@ -32,9 +32,4 @@ const subCategorySchema = new Schema<ISubCategory>(
   { timestamps: true }
 );
 
-const SubCategoryModel: Model<ISubCategory> =
-  mongoose.models.SubCategory ||
-  mongoose.model<ISubCategory>("SubCategory", subCategorySchema);
-
-export { SubCategoryModel };
 export type { ISubCategory };

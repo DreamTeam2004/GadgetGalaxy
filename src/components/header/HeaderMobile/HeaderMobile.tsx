@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-
 import Navigation from "@/components/header/Navigation/Navigation";
 import AuthModal from "@/components/AuthModal/AuthModal";
 
@@ -14,11 +13,11 @@ import CatalogIcon from "@/assets/images/icon-catalog.svg";
 import HeartIcon from "@/assets/images/icon-heart.svg";
 import UnionIcon from "@/assets/images/icon-union.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/lib/store/store";
+import { RootState } from "@/lib/store";
 import { clearUser } from "@/lib/store/slices/UserSlice";
 import { toast } from "react-toastify";
 import { signOut } from "firebase/auth";
-import { auth } from "@/DB/firebase/firebase";
+import { auth } from "@/DB/firebase";
 import useAuth from "@/hooks/useAuth";
 
 import "./HeaderMobile.scss";

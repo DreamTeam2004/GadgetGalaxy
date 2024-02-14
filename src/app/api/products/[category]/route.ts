@@ -1,6 +1,4 @@
-import { connectMongoDB } from "@/DB/mongoDB/mongoDB";
-import { ProductModel } from "@/DB/models/productModel";
-import { SubCategoryModel } from "@/DB/models/subCategoryModel";
+import { connectMongoDB, SubCategoryModel, ProductModel } from "@/DB/mongoDB";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(

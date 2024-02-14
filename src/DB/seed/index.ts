@@ -1,12 +1,10 @@
-import { connectMongoDB } from "../mongoDB/mongoDB";
-import { CategoryModel } from "../models/categoryModel";
-import { SubCategoryModel } from "../models/subCategoryModel";
-import { ProductModel } from "../models/productModel";
-import fs from "fs";
-import { storage } from "../firebase/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { connectMongoDB, CategoryModel, SubCategoryModel, ProductModel } from "../mongoDB";
 
 import { categories, subcategories, products } from "./seed-data";
+import { storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+import fs from "fs";
 
 async function seedCategories() {
   for (const category of categories) {
@@ -172,8 +170,8 @@ async function seedFirestore() {
   // Подключение к базе данных MongoDB
   await connectMongoDB();
   // Выполнение операций по добавлению данных
-  await seedCategories();
-  await seedSubCategories();
+  // await seedCategories();
+  // await seedSubCategories();
   await seedProducts();
   console.log("Seed finished adding data");
   process.exit(0);

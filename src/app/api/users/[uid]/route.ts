@@ -1,4 +1,4 @@
-import { UserModel } from "@/DB/models/userModel";
+import { connectMongoDB, UserModel } from "@/DB/mongoDB";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -9,6 +9,7 @@ export async function GET(
   const authorizationHeader = req.headers.get("Authorization");
 
   try {
+    await connectMongoDB();
     // Проверка наличия токена в заголовке Authorization
     if (!authorizationHeader) {
       return NextResponse.json(

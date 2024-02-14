@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
+import  { Document, Schema } from "mongoose";
 
 interface IUser extends Document {
   uid: string;
@@ -8,7 +8,7 @@ interface IUser extends Document {
   provider: string;
 }
 
-const userSchema = new Schema<IUser>(
+export const userSchema = new Schema<IUser>(
   {
     uid: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
@@ -22,8 +22,4 @@ const userSchema = new Schema<IUser>(
 // Создаем индекс для поля email
 userSchema.index({ email: 1 }, { unique: true });
 
-const UserModel: Model<IUser> =
-  mongoose.models.User || mongoose.model<IUser>("User", userSchema);
-
-export { UserModel };
 export type { IUser };

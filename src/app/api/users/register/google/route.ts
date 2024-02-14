@@ -1,5 +1,4 @@
-import { connectMongoDB } from "@/DB/mongoDB/mongoDB";
-import { UserModel } from "@/DB/models/userModel";
+import { connectMongoDB, UserModel } from "@/DB/mongoDB";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
